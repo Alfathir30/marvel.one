@@ -397,6 +397,186 @@
             transform: translateY(-3px);
         }
 
+        /* Color Match Game Styles */
+        .color-match-container {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .color-display {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .color-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .color-option {
+            height: 80px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 3px solid transparent;
+        }
+
+        .color-option:hover {
+            transform: scale(1.05);
+        }
+
+        .color-option.selected {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 15px rgba(108, 99, 255, 0.5);
+        }
+
+        .color-option.correct {
+            border-color: #4CAF50;
+            animation: correctPulse 0.5s ease;
+        }
+
+        .color-option.incorrect {
+            border-color: #f44336;
+            animation: shake 0.5s ease;
+        }
+
+        @keyframes correctPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        /* Catch the Ball Game Styles */
+        #catchBallCanvas {
+            border: 2px solid var(--accent-color);
+            border-radius: 10px;
+            display: block;
+            margin: 0 auto;
+            background: linear-gradient(to bottom, #87CEEB, #98D8E8);
+            touch-action: none;
+        }
+
+        .catch-ball-controls {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .control-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 2px solid var(--accent-color);
+            color: var(--text-color);
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .control-btn:active {
+            transform: scale(0.95);
+            background: rgba(108, 99, 255, 0.3);
+        }
+
+        /* Word Puzzle Game Styles */
+        .word-puzzle-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .word-display {
+            font-size: 2.5rem;
+            letter-spacing: 10px;
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+
+        .word-hint {
+            text-align: center;
+            margin-bottom: 30px;
+            font-style: italic;
+            color: var(--text-secondary);
+        }
+
+        .word-input {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.2rem;
+            border-radius: 10px;
+            border: 2px solid var(--glass-border);
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            color: var(--text-color);
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .word-input:focus {
+            outline: none;
+            border-color: var(--accent-color);
+        }
+
+        .word-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .letter-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            color: var(--text-color);
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .letter-btn:hover {
+            background: rgba(108, 99, 255, 0.2);
+            transform: translateY(-3px);
+        }
+
+        .letter-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Desktop/Mobile Specific Styles */
+        .desktop-only {
+            display: block;
+        }
+
+        .mobile-only {
+            display: none;
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .memory-game {
@@ -417,6 +597,29 @@
             #snakeCanvas {
                 width: 300px !important;
                 height: 300px !important;
+            }
+
+            .desktop-only {
+                display: none !important;
+            }
+
+            .mobile-only {
+                display: block;
+            }
+
+            .color-options {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .word-display {
+                font-size: 2rem;
+                letter-spacing: 5px;
+            }
+
+            .letter-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
             }
         }
     </style>
@@ -480,7 +683,7 @@
                         <span class="play-btn">Mainkan <i class="fas fa-play"></i></span>
                     </div>
                     
-                    <div class="game-card glass" data-aos="fade-up" data-aos-delay="300" onclick="openGame('snake')">
+                    <div class="game-card glass desktop-only" data-aos="fade-up" data-aos-delay="300" onclick="openGame('snake')">
                         <div class="game-icon">
                             <i class="fas fa-dragon"></i>
                         </div>
@@ -504,6 +707,33 @@
                         </div>
                         <h3>Quiz Game</h3>
                         <p>Uji pengetahuan umum Anda dengan kuis seru</p>
+                        <span class="play-btn">Mainkan <i class="fas fa-play"></i></span>
+                    </div>
+                    
+                    <div class="game-card glass mobile-only" data-aos="fade-up" data-aos-delay="600" onclick="openGame('colormatch')">
+                        <div class="game-icon">
+                            <i class="fas fa-palette"></i>
+                        </div>
+                        <h3>Color Match</h3>
+                        <p>Cocokkan warna yang tepat dalam game visual yang menarik</p>
+                        <span class="play-btn">Mainkan <i class="fas fa-play"></i></span>
+                    </div>
+                    
+                    <div class="game-card glass mobile-only" data-aos="fade-up" data-aos-delay="700" onclick="openGame('catchball')">
+                        <div class="game-icon">
+                            <i class="fas fa-baseball-ball"></i>
+                        </div>
+                        <h3>Catch the Ball</h3>
+                        <p>Tangkap bola yang jatuh sebelum menyentuh tanah</p>
+                        <span class="play-btn">Mainkan <i class="fas fa-play"></i></span>
+                    </div>
+                    
+                    <div class="game-card glass mobile-only" data-aos="fade-up" data-aos-delay="800" onclick="openGame('wordpuzzle')">
+                        <div class="game-icon">
+                            <i class="fas fa-spell-check"></i>
+                        </div>
+                        <h3>Word Puzzle</h3>
+                        <p>Selesaikan teka-teki kata dengan petunjuk yang diberikan</p>
                         <span class="play-btn">Mainkan <i class="fas fa-play"></i></span>
                     </div>
                 </div>
@@ -565,6 +795,18 @@
                     content.innerHTML = getQuizGameHTML();
                     initQuizGame();
                     break;
+                case 'colormatch':
+                    content.innerHTML = getColorMatchHTML();
+                    initColorMatch();
+                    break;
+                case 'catchball':
+                    content.innerHTML = getCatchBallHTML();
+                    initCatchBall();
+                    break;
+                case 'wordpuzzle':
+                    content.innerHTML = getWordPuzzleHTML();
+                    initWordPuzzle();
+                    break;
             }
             
             modal.classList.add('active');
@@ -579,6 +821,9 @@
             // Stop any running games
             if (window.snakeInterval) {
                 clearInterval(window.snakeInterval);
+            }
+            if (window.catchBallInterval) {
+                clearInterval(window.catchBallInterval);
             }
         }
 
@@ -1051,6 +1296,490 @@
             }
             
             loadQuestion();
+        }
+
+        // Color Match Game
+        function getColorMatchHTML() {
+            return `
+                <div class="game-header">
+                    <h2>Color Match Game</h2>
+                    <p>Pilih warna yang sesuai dengan teks!</p>
+                </div>
+                <div class="game-info">
+                    <div>Score: <span id="colorScore">0</span></div>
+                    <div>High Score: <span id="colorHighScore">0</span></div>
+                </div>
+                <div class="color-match-container">
+                    <div class="color-display" id="colorDisplay"></div>
+                    <div class="color-options" id="colorOptions"></div>
+                    <div class="game-buttons">
+                        <button class="game-btn primary" onclick="initColorMatch()">New Game</button>
+                        <button class="game-btn secondary" onclick="closeGame()">Close</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function initColorMatch() {
+            const colorDisplay = document.getElementById('colorDisplay');
+            const colorOptions = document.getElementById('colorOptions');
+            const colors = [
+                { name: 'Merah', value: '#FF0000' },
+                { name: 'Hijau', value: '#00FF00' },
+                { name: 'Biru', value: '#0000FF' },
+                { name: 'Kuning', value: '#FFFF00' },
+                { name: 'Ungu', value: '#800080' },
+                { name: 'Oranye', value: '#FFA500' },
+                { name: 'Pink', value: '#FFC0CB' },
+                { name: 'Coklat', value: '#A52A2A' }
+            ];
+            
+            let score = 0;
+            let highScore = localStorage.getItem('colorHighScore') || 0;
+            let currentColor = null;
+            let currentText = null;
+            let gameActive = true;
+            
+            document.getElementById('colorHighScore').textContent = highScore;
+            document.getElementById('colorScore').textContent = score;
+            
+            function generateRound() {
+                if (!gameActive) return;
+                
+                // Select random color for text
+                currentText = colors[Math.floor(Math.random() * colors.length)];
+                
+                // Select random color for display (can be same or different)
+                currentColor = colors[Math.floor(Math.random() * colors.length)];
+                
+                // Set display
+                colorDisplay.style.backgroundColor = currentColor.value;
+                colorDisplay.textContent = currentText.name;
+                colorDisplay.style.color = '#FFFFFF';
+                colorDisplay.style.display = 'flex';
+                colorDisplay.style.alignItems = 'center';
+                colorDisplay.style.justifyContent = 'center';
+                colorDisplay.style.fontSize = '2rem';
+                colorDisplay.style.fontWeight = 'bold';
+                
+                // Create options
+                colorOptions.innerHTML = '';
+                
+                // Add correct answer
+                const correctOption = document.createElement('div');
+                correctOption.className = 'color-option';
+                correctOption.style.backgroundColor = currentText.value;
+                correctOption.addEventListener('click', () => checkAnswer(true));
+                colorOptions.appendChild(correctOption);
+                
+                // Add wrong answers
+                const wrongColors = colors.filter(c => c.name !== currentText.name);
+                const shuffledWrongColors = wrongColors.sort(() => Math.random() - 0.5).slice(0, 3);
+                
+                shuffledWrongColors.forEach(color => {
+                    const option = document.createElement('div');
+                    option.className = 'color-option';
+                    option.style.backgroundColor = color.value;
+                    option.addEventListener('click', () => checkAnswer(false));
+                    colorOptions.appendChild(option);
+                });
+                
+                // Shuffle all options
+                const allOptions = Array.from(colorOptions.children);
+                allOptions.sort(() => Math.random() - 0.5);
+                colorOptions.innerHTML = '';
+                allOptions.forEach(option => colorOptions.appendChild(option));
+            }
+            
+            function checkAnswer(isCorrect) {
+                if (!gameActive) return;
+                gameActive = false;
+                
+                const options = document.querySelectorAll('.color-option');
+                
+                if (isCorrect) {
+                    score++;
+                    document.getElementById('colorScore').textContent = score;
+                    
+                    // Find and highlight correct option
+                    options.forEach(option => {
+                        if (option.style.backgroundColor === currentText.value) {
+                            option.classList.add('correct');
+                        }
+                    });
+                } else {
+                    // Find and highlight incorrect and correct options
+                    options.forEach(option => {
+                        if (option.style.backgroundColor === currentText.value) {
+                            option.classList.add('correct');
+                        } else {
+                            option.classList.add('incorrect');
+                        }
+                    });
+                }
+                
+                setTimeout(() => {
+                    gameActive = true;
+                    generateRound();
+                }, 1500);
+            }
+            
+            generateRound();
+        }
+
+        // Catch the Ball Game
+        function getCatchBallHTML() {
+            return `
+                <div class="game-header">
+                    <h2>Catch the Ball</h2>
+                    <p>Gunakan tombol kontrol atau geser untuk memindahkan keranjang!</p>
+                </div>
+                <div class="game-info">
+                    <div>Score: <span id="catchScore">0</span></div>
+                    <div>Lives: <span id="catchLives">3</span></div>
+                </div>
+                <canvas id="catchBallCanvas" width="350" height="400"></canvas>
+                <div class="catch-ball-controls">
+                    <button class="control-btn" id="leftBtn"><i class="fas fa-arrow-left"></i></button>
+                    <button class="control-btn" id="rightBtn"><i class="fas fa-arrow-right"></i></button>
+                </div>
+                <div class="game-buttons">
+                    <button class="game-btn primary" onclick="startCatchBall()">Start Game</button>
+                    <button class="game-btn secondary" onclick="pauseCatchBall()">Pause</button>
+                </div>
+            `;
+        }
+
+        function initCatchBall() {
+            const canvas = document.getElementById('catchBallCanvas');
+            const ctx = canvas.getContext('2d');
+            const leftBtn = document.getElementById('leftBtn');
+            const rightBtn = document.getElementById('rightBtn');
+            
+            let basket = {
+                x: canvas.width / 2 - 40,
+                y: canvas.height - 60,
+                width: 80,
+                height: 20,
+                speed: 8
+            };
+            
+            let balls = [];
+            let score = 0;
+            let lives = 3;
+            let gameRunning = false;
+            let ballSpeed = 2;
+            let ballInterval = 1500;
+            let lastBallTime = 0;
+            
+            document.getElementById('catchScore').textContent = score;
+            document.getElementById('catchLives').textContent = lives;
+            
+            // Touch controls
+            let touchStartX = 0;
+            canvas.addEventListener('touchstart', (e) => {
+                touchStartX = e.touches[0].clientX;
+            });
+            
+            canvas.addEventListener('touchmove', (e) => {
+                if (!gameRunning) return;
+                e.preventDefault();
+                
+                const touchX = e.touches[0].clientX;
+                const diffX = touchX - touchStartX;
+                
+                basket.x += diffX * 0.5;
+                
+                // Keep basket within bounds
+                if (basket.x < 0) basket.x = 0;
+                if (basket.x + basket.width > canvas.width) basket.x = canvas.width - basket.width;
+                
+                touchStartX = touchX;
+            });
+            
+            // Button controls
+            let leftPressed = false;
+            let rightPressed = false;
+            
+            leftBtn.addEventListener('touchstart', () => leftPressed = true);
+            leftBtn.addEventListener('touchend', () => leftPressed = false);
+            leftBtn.addEventListener('mousedown', () => leftPressed = true);
+            leftBtn.addEventListener('mouseup', () => leftPressed = false);
+            
+            rightBtn.addEventListener('touchstart', () => rightPressed = true);
+            rightBtn.addEventListener('touchend', () => rightPressed = false);
+            rightBtn.addEventListener('mousedown', () => rightPressed = true);
+            rightBtn.addEventListener('mouseup', () => rightPressed = false);
+            
+            window.startCatchBall = function() {
+                if (gameRunning) return;
+                gameRunning = true;
+                score = 0;
+                lives = 3;
+                balls = [];
+                ballSpeed = 2;
+                ballInterval = 1500;
+                document.getElementById('catchScore').textContent = score;
+                document.getElementById('catchLives').textContent = lives;
+                gameLoop();
+            };
+            
+            window.pauseCatchBall = function() {
+                gameRunning = false;
+            };
+            
+            function createBall() {
+                balls.push({
+                    x: Math.random() * (canvas.width - 20) + 10,
+                    y: -20,
+                    radius: 10,
+                    color: `hsl(${Math.random() * 360}, 70%, 60%)`
+                });
+            }
+            
+            function updateBalls() {
+                for (let i = balls.length - 1; i >= 0; i--) {
+                    const ball = balls[i];
+                    ball.y += ballSpeed;
+                    
+                    // Check if ball caught by basket
+                    if (
+                        ball.y + ball.radius >= basket.y &&
+                        ball.y - ball.radius <= basket.y + basket.height &&
+                        ball.x >= basket.x &&
+                        ball.x <= basket.x + basket.width
+                    ) {
+                        balls.splice(i, 1);
+                        score++;
+                        document.getElementById('catchScore').textContent = score;
+                        
+                        // Increase difficulty
+                        if (score % 5 === 0) {
+                            ballSpeed += 0.5;
+                            ballInterval = Math.max(800, ballInterval - 100);
+                        }
+                    }
+                    // Check if ball hit the ground
+                    else if (ball.y - ball.radius > canvas.height) {
+                        balls.splice(i, 1);
+                        lives--;
+                        document.getElementById('catchLives').textContent = lives;
+                        
+                        if (lives <= 0) {
+                            gameOver();
+                        }
+                    }
+                }
+            }
+            
+            function drawBasket() {
+                ctx.fillStyle = '#8B4513';
+                ctx.fillRect(basket.x, basket.y, basket.width, basket.height);
+                
+                // Draw basket pattern
+                ctx.strokeStyle = '#654321';
+                ctx.lineWidth = 2;
+                for (let i = 0; i < basket.width; i += 10) {
+                    ctx.beginPath();
+                    ctx.moveTo(basket.x + i, basket.y);
+                    ctx.lineTo(basket.x + i, basket.y + basket.height);
+                    ctx.stroke();
+                }
+            }
+            
+            function drawBalls() {
+                balls.forEach(ball => {
+                    ctx.beginPath();
+                    ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = ball.color;
+                    ctx.fill();
+                    
+                    // Add shine effect
+                    ctx.beginPath();
+                    ctx.arc(ball.x - 3, ball.y - 3, ball.radius / 3, 0, Math.PI * 2);
+                    ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+                    ctx.fill();
+                });
+            }
+            
+            function gameLoop() {
+                if (!gameRunning) return;
+                
+                // Clear canvas
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                // Draw background
+                const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+                gradient.addColorStop(0, '#87CEEB');
+                gradient.addColorStop(1, '#98D8E8');
+                ctx.fillStyle = gradient;
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                
+                // Move basket based on button controls
+                if (leftPressed && basket.x > 0) {
+                    basket.x -= basket.speed;
+                }
+                if (rightPressed && basket.x + basket.width < canvas.width) {
+                    basket.x += basket.speed;
+                }
+                
+                // Create new balls at intervals
+                const now = Date.now();
+                if (now - lastBallTime > ballInterval) {
+                    createBall();
+                    lastBallTime = now;
+                }
+                
+                // Update and draw game elements
+                updateBalls();
+                drawBasket();
+                drawBalls();
+                
+                requestAnimationFrame(gameLoop);
+            }
+            
+            function gameOver() {
+                gameRunning = false;
+                alert(`Game Over! Your score: ${score}`);
+            }
+        }
+
+        // Word Puzzle Game
+        function getWordPuzzleHTML() {
+            return `
+                <div class="game-header">
+                    <h2>Word Puzzle</h2>
+                    <p>Selesaikan teka-teki kata dengan petunjuk yang diberikan!</p>
+                </div>
+                <div class="game-info">
+                    <div>Score: <span id="wordScore">0</span></div>
+                    <div>Level: <span id="wordLevel">1</span></div>
+                </div>
+                <div class="word-puzzle-container">
+                    <div class="word-display" id="wordDisplay"></div>
+                    <div class="word-hint" id="wordHint"></div>
+                    <input type="text" class="word-input" id="wordInput" placeholder="Ketik jawaban Anda di sini">
+                    <div class="word-buttons">
+                        <button class="game-btn primary" onclick="checkWordAnswer()">Submit</button>
+                        <button class="game-btn secondary" onclick="getHint()">Hint</button>
+                    </div>
+                    <div class="game-buttons">
+                        <button class="game-btn primary" onclick="initWordPuzzle()">New Game</button>
+                        <button class="game-btn secondary" onclick="closeGame()">Close</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function initWordPuzzle() {
+            const words = [
+                { word: 'JAKARTA', hint: 'Ibu kota Indonesia', letters: ['J', 'A', 'K', 'A', 'R', 'T', 'A'] },
+                { word: 'KOMPUTER', hint: 'Perangkat elektronik untuk pemrosesan data', letters: ['K', 'O', 'M', 'P', 'U', 'T', 'E', 'R'] },
+                { word: 'BOLA', hint: 'Olahraga dengan 11 pemain per tim', letters: ['B', 'O', 'L', 'A'] },
+                { word: 'GADGET', hint: 'Perangkat elektronik portabel', letters: ['G', 'A', 'D', 'G', 'E', 'T'] },
+                { word: 'MUSIK', hint: 'Seni suara yang melodius', letters: ['M', 'U', 'S', 'I', 'K'] },
+                { word: 'INTERNET', hint: 'Jaringan global komputer', letters: ['I', 'N', 'T', 'E', 'R', 'N', 'E', 'T'] },
+                { word: 'GAME', hint: 'Aktivitas hiburan interaktif', letters: ['G', 'A', 'M', 'E'] },
+                { word: 'MOBIL', hint: 'Kendaraan roda empat', letters: ['M', 'O', 'B', 'I', 'L'] }
+            ];
+            
+            let currentWordIndex = 0;
+            let score = 0;
+            let level = 1;
+            let hintsUsed = 0;
+            let currentWord = null;
+            
+            function loadWord() {
+                // Shuffle words and pick one
+                const shuffledWords = [...words].sort(() => Math.random() - 0.5);
+                currentWord = shuffledWords[currentWordIndex % words.length];
+                
+                // Display word with blanks
+                const wordDisplay = document.getElementById('wordDisplay');
+                wordDisplay.textContent = currentWord.word.split('').map(() => '_').join(' ');
+                
+                // Display hint
+                document.getElementById('wordHint').textContent = `Petunjuk: ${currentWord.hint}`;
+                
+                // Clear input
+                document.getElementById('wordInput').value = '';
+                
+                // Reset hints used
+                hintsUsed = 0;
+            }
+            
+            window.checkWordAnswer = function() {
+                const userAnswer = document.getElementById('wordInput').value.toUpperCase().trim();
+                
+                if (userAnswer === currentWord.word) {
+                    score += Math.max(10 - hintsUsed * 2, 2); // Fewer points if hints used
+                    document.getElementById('wordScore').textContent = score;
+                    
+                    // Level up every 3 correct answers
+                    if (score > 0 && score % 30 === 0) {
+                        level++;
+                        document.getElementById('wordLevel').textContent = level;
+                        alert(`Level Up! Anda sekarang di level ${level}!`);
+                    } else {
+                        alert('Benar! Lanjut ke kata berikutnya.');
+                    }
+                    
+                    currentWordIndex++;
+                    loadWord();
+                } else {
+                    // Check if answer is close
+                    let correctChars = 0;
+                    for (let i = 0; i < Math.min(userAnswer.length, currentWord.word.length); i++) {
+                        if (userAnswer[i] === currentWord.word[i]) {
+                            correctChars++;
+                        }
+                    }
+                    
+                    if (correctChars >= currentWord.word.length * 0.7) {
+                        alert('Hampir benar! Coba lagi.');
+                    } else {
+                        alert('Jawaban salah. Coba lagi.');
+                    }
+                }
+            };
+            
+            window.getHint = function() {
+                if (hintsUsed >= 2) {
+                    alert('Anda sudah menggunakan semua petunjuk untuk kata ini.');
+                    return;
+                }
+                
+                hintsUsed++;
+                const wordDisplay = document.getElementById('wordDisplay');
+                const currentDisplay = wordDisplay.textContent.split(' ');
+                const wordArray = currentWord.word.split('');
+                
+                // Reveal random letters
+                const hiddenIndices = [];
+                for (let i = 0; i < wordArray.length; i++) {
+                    if (currentDisplay[i] === '_') {
+                        hiddenIndices.push(i);
+                    }
+                }
+                
+                if (hiddenIndices.length > 0) {
+                    const randomIndex = hiddenIndices[Math.floor(Math.random() * hiddenIndices.length)];
+                    currentDisplay[randomIndex] = wordArray[randomIndex];
+                    wordDisplay.textContent = currentDisplay.join(' ');
+                }
+            };
+            
+            // Initialize game
+            document.getElementById('wordScore').textContent = score;
+            document.getElementById('wordLevel').textContent = level;
+            loadWord();
+            
+            // Allow submitting with Enter key
+            document.getElementById('wordInput').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    checkWordAnswer();
+                }
+            });
         }
 
         // Close modal when clicking outside
