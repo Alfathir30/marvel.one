@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Halaman Tidak Ditemukan | Marvel</title>
+    <link href="https://fonts.googleapis.com/css?family=Fira+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Variables */
+        :root {
+            --background-color: #353b48;
+            --font: "Fira Sans", sans-serif;
+            --white: #f5f6fa;
+            --black: #0C0E10;
+            --gray: #202425;
+            --blue: #446182;
+            --accent-color: #6C63FF;
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Reset & base styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: var(--font);
+            color: var(--white);
+            background: linear-gradient(var(--black), var(--blue));
+            overflow-x: hidden;
+        }
+
+        /* Background */
+        .background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(var(--black), var(--blue));
+        }
+
+        .background .ground {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 25vh;
+            background: var(--black);
+        }
+
+        /* Container */
+        .container {
+            position: relative;
+            margin: 0 auto;
+            width: 85%;
+            height: 100vh;
+            padding-bottom: 25vh;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+        }
+
+        .left-section,
+        .right-section {
+            position: relative;
+        }
+
+        /* Left Section */
+        .left-section {
+            width: 40%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .left-section .inner-content {
+            position: relative;
+        }
+
+        .heading {
+            text-align: center;
+            font-size: 9em;
+            line-height: 1.3em;
+            margin: 2rem 0 0.5rem 0;
+            padding: 0;
+            text-shadow: 0 0 1rem #fefefe;
+            animation: glow 3s ease-in-out infinite;
+        }
+
+        .subheading {
+            text-align: center;
+            max-width: 480px;
+            font-size: 1.5em;
+            line-height: 1.15em;
+            padding: 0 1rem;
+            margin: 0 auto 2rem;
+        }
+
+        /* Glass Button */
+        .button-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 2rem;
+            position: relative;
+        }
+
+        .glass-button {
+            position: relative;
+            padding: 15px 40px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 50px;
+            color: var(--white);
+            font-family: var(--font);
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 2;
+        }
+
+        .glass-button:hover {
+            background: rgba(108, 99, 255, 0.2);
+            border-color: var(--accent-color);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(108, 99, 255, 0.2);
+        }
+
+        .glass-button:active {
+            transform: translateY(-1px);
+        }
+
+        /* Lamp Effect */
+        .lamp-effect {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            border-radius: 50px;
+            background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), 
+                rgba(255, 255, 255, 0.15) 0%, 
+                rgba(255, 255, 255, 0.05) 40%, 
+                transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .glass-button:hover .lamp-effect {
+            opacity: 1;
+        }
+
+        /* Light Rays */
+        .light-rays {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            border-radius: 50px;
+            overflow: hidden;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .glass-button:hover .light-rays {
+            opacity: 1;
+        }
+
+        .light-ray {
+            position: absolute;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            height: 1px;
+            width: 100%;
+            top: 50%;
+            left: 0;
+            transform-origin: center;
+            animation: rotateRay 3s linear infinite;
+        }
+
+        .light-ray:nth-child(1) {
+            animation-delay: 0s;
+        }
+
+        .light-ray:nth-child(2) {
+            animation-delay: 0.5s;
+        }
+
+        .light-ray:nth-child(3) {
+            animation-delay: 1s;
+        }
+
+        .light-ray:nth-child(4) {
+            animation-delay: 1.5s;
+        }
+
+        .light-ray:nth-child(5) {
+            animation-delay: 2s;
+        }
+
+        @keyframes rotateRay {
+            0% {
+                transform: rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Right Section */
+        .right-section {
+            width: 50%;
+        }
+
+        .svgimg {
+            position: absolute;
+            bottom: 0;
+            padding-top: 10vh;
+            padding-left: 1vh;
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        .bench-legs {
+            fill: var(--black);
+        }
+
+        .top-bench,
+        .bottom-bench {
+            stroke: var(--black);
+            stroke-width: 1px;
+            fill: #5B3E2B;
+        }
+
+        .bottom-bench path:nth-child(1) {
+            fill: #4e3325;
+        }
+
+        .lamp-details {
+            fill: var(--gray);
+        }
+
+        .lamp-accent {
+            fill: #2b3032;
+        }
+
+        .lamp-bottom {
+            fill: linear-gradient(var(--gray), var(--black));
+        }
+
+        .lamp-light {
+            fill: #EFEFEF;
+        }
+
+        /* Animation */
+        @keyframes glow {
+            0% {
+                text-shadow: 0 0 1rem #fefefe;
+            }
+            50% {
+                text-shadow: 0 0 1.85rem #ededed;
+            }
+            100% {
+                text-shadow: 0 0 1rem #fefefe;
+            }
+        }
+
+        /* Additional Links */
+        .additional-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 1.5rem;
+        }
+
+        .additional-link {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 0.9rem;
+            opacity: 0.8;
+            transition: all 0.3s ease;
+        }
+
+        .additional-link:hover {
+            opacity: 1;
+            color: var(--accent-color);
+        }
+
+        /* Responsive */
+        @media (max-width: 770px) {
+            .background .ground {
+                height: 0vh;
+            }
+
+            .container {
+                flex-direction: column;
+                padding-bottom: 0;
+                height: 100vh;
+            }
+
+            .left-section {
+                width: 100%;
+                height: 40%;
+                position: absolute;
+                top: 0;
+            }
+
+            .left-section .inner-content {
+                position: relative;
+                padding: 1rem 0;
+            }
+
+            .heading {
+                font-size: 7em;
+                line-height: 1.15;
+                margin: 0;
+            }
+
+            .subheading {
+                font-size: 1.3em;
+                line-height: 1.15;
+                max-width: 100%;
+            }
+
+            .right-section {
+                width: 100%;
+                height: 60%;
+                position: absolute;
+                bottom: 0;
+            }
+
+            .svgimg {
+                padding: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background">
+        <div class="ground"></div>
+    </div>
+    <div class="container">
+        <div class="left-section">
+            <div class="inner-content">
+                <h1 class="heading">404</h1>
+                <p class="subheading">Sepertinya halaman yang Anda cari sudah tidak ada lagi.</p>
+                
+                <div class="button-container">
+                    <a href="index.html" class="glass-button" id="homeButton">
+                        <div class="lamp-effect"></div>
+                        <div class="light-rays">
+                            <div class="light-ray"></div>
+                            <div class="light-ray"></div>
+                            <div class="light-ray"></div>
+                            <div class="light-ray"></div>
+                            <div class="light-ray"></div>
+                        </div>
+                        <i class="fas fa-home"></i>
+                        Kembali ke Beranda
+                    </a>
+                </div>
+                
+                <div class="additional-links">
+                    <a href="about.html" class="additional-link">Tentang</a>
+                    <a href="gallery.html" class="additional-link">Galeri</a>
+                    <a href="blog.html" class="additional-link">Blog</a>
+                    <a href="games.html" class="additional-link">Games</a>
+                </div>
+            </div>
+        </div>
+        <div class="right-section">
+            <svg class="svgimg" xmlns="http://www.w3.org/2000/svg" viewBox="51.5 -15.288 385 505.565">
+                <g class="bench-legs">
+                    <path d="M202.778,391.666h11.111v98.611h-11.111V391.666z M370.833,390.277h11.111v100h-11.111V390.277z M183.333,456.944h11.111
+                    v33.333h-11.111V456.944z M393.056,456.944h11.111v33.333h-11.111V456.944z" />
+                </g>
+                <g class="top-bench">
+                    <path d="M396.527,397.917c0,1.534-1.243,2.777-2.777,2.777H190.972c-1.534,0-2.778-1.243-2.778-2.777v-8.333
+                    c0-1.535,1.244-2.778,2.778-2.778H393.75c1.534,0,2.777,1.243,2.777,2.778V397.917z M400.694,414.583
+                    c0,1.534-1.243,2.778-2.777,2.778H188.194c-1.534,0-2.778-1.244-2.778-2.778v-8.333c0-1.534,1.244-2.777,2.778-2.777h209.723
+                    c1.534,0,2.777,1.243,2.777,2.777V414.583z M403.473,431.25c0,1.534-1.244,2.777-2.778,2.777H184.028
+                    c-1.534,0-2.778-1.243-2.778-2.777v-8.333c0-1.534,1.244-2.778,2.778-2.778h216.667c1.534,0,2.778,1.244,2.778,2.778V431.25z"
+                    />
+                </g>
+                <g class="bottom-bench">
+                    <path d="M417.361,459.027c0,0.769-1.244,1.39-2.778,1.39H170.139c-1.533,0-2.777-0.621-2.777-1.39v-4.86
+                    c0-0.769,1.244-0.694,2.777-0.694h244.444c1.534,0,2.778-0.074,2.778,0.694V459.027z" />
+                    <path d="M185.417,443.75H400c0,0,18.143,9.721,17.361,10.417l-250-0.696C167.303,451.65,185.417,443.75,185.417,443.75z" />
+                </g>
+                <g id="lamp">
+                    <path class="lamp-details" d="M125.694,421.997c0,1.257-0.73,3.697-1.633,3.697H113.44c-0.903,0-1.633-2.44-1.633-3.697V84.917
+                    c0-1.257,0.73-2.278,1.633-2.278h10.621c0.903,0,1.633,1.02,1.633,2.278V421.997z"/>
+                    <path class="lamp-accent" d="M128.472,93.75c0,1.534-1.244,2.778-2.778,2.778h-13.889c-1.534,0-2.778-1.244-2.778-2.778V79.861
+                    c0-1.534,1.244-2.778,2.778-2.778h13.889c1.534,0,2.778,1.244,2.778,2.778V93.75z"/>
+                    <circle class="lamp-light" cx="119.676" cy="44.22" r="40.51"/>
+                    <path class="lamp-details" d="M149.306,71.528c0,3.242-13.37,13.889-29.861,13.889S89.583,75.232,89.583,71.528c0-4.166,13.369-13.889,29.861-13.889
+                    S149.306,67.362,149.306,71.528z"/>
+                    <radialGradient id="SVGID_1_" cx="119.676" cy="44.22" r="65" gradientUnits="userSpaceOnUse">
+                        <stop offset="0%" style="stop-color:#FFFFFF; stop-opacity:1"/>
+                        <stop offset="50%" style="stop-color:#EDEDED; stop-opacity:0.5">
+                            <animate attributeName="stop-opacity" values="0.0; 0.5; 0.0" dur="5000ms" repeatCount="indefinite"></animate>
+                        </stop>
+                        <stop offset="100%" style="stop-color:#EDEDED; stop-opacity:0"/>
+                    </radialGradient>
+                    <circle fill="url(#SVGID_1_)" cx="119.676" cy="44.22" r="65"/>
+                    <path class="lamp-bottom" d="M135.417,487.781c0,1.378-1.244,2.496-2.778,2.496H106.25c-1.534,0-2.778-1.118-2.778-2.496v-74.869
+                    c0-1.378,1.244-2.495,2.778-2.495h26.389c1.534,0,2.778,1.117,2.778,2.495V487.781z"/>
+                </g>
+            </svg>
+        </div>
+    </div>
+
+    <script>
+        // Lamp effect following mouse
+        const homeButton = document.getElementById('homeButton');
+        const lampEffect = homeButton.querySelector('.lamp-effect');
+        
+        homeButton.addEventListener('mousemove', (e) => {
+            const rect = homeButton.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            const xPercent = (x / rect.width) * 100;
+            const yPercent = (y / rect.height) * 100;
+            
+            lampEffect.style.setProperty('--mouse-x', `${xPercent}%`);
+            lampEffect.style.setProperty('--mouse-y', `${yPercent}%`);
+        });
+        
+        // Add some interactive elements
+        document.addEventListener('DOMContentLoaded', () => {
+            // Random lamp flicker
+            const lampLight = document.querySelector('.lamp-light');
+            setInterval(() => {
+                if (Math.random() > 0.8) {
+                    lampLight.style.opacity = '0.7';
+                    setTimeout(() => {
+                        lampLight.style.opacity = '1';
+                    }, 100);
+                }
+            }, 3000);
+            
+            // Create floating particles
+            createParticles();
+        });
+        
+        function createParticles() {
+            const background = document.querySelector('.background');
+            
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.style.position = 'absolute';
+                particle.style.width = '2px';
+                particle.style.height = '2px';
+                particle.style.backgroundColor = '#ffffff';
+                particle.style.borderRadius = '50%';
+                particle.style.opacity = Math.random() * 0.5 + 0.2;
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.pointerEvents = 'none';
+                particle.style.animation = `float ${10 + Math.random() * 20}s linear infinite`;
+                background.appendChild(particle);
+            }
+            
+            // Add floating animation
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes float {
+                    0% { transform: translateY(0) translateX(0); }
+                    25% { transform: translateY(-20px) translateX(10px); }
+                    50% { transform: translateY(10px) translateX(-10px); }
+                    75% { transform: translateY(-10px) translateX(5px); }
+                    100% { transform: translateY(0) translateX(0); }
+                }
+            `;
+            document.head.appendChild(style);
+        }
+    </script>
+</body>
+</html>
