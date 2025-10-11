@@ -1,18 +1,8 @@
-[package]
-name = "marvel-one"
-version = "0.1.0"
-description = "MARVEL.ONE - Personal Website"
-
-[[module]]
-name = "marvel-one-website"
-source = "."
-type = "static"
-
-[fs]
-"/" = "."
+[build]
+  publish = "."
 
 [[redirects]]
-from = "/*"
-to = "/404.html"
-status = 404
-force = false
+  from = "/*"
+  to = "/404.html"
+  status = 404
+  force = false
