@@ -283,41 +283,47 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 
-// 404 Page Handler
+// 404 Page Handler - Simplified version
 document.addEventListener('DOMContentLoaded', function() {
     // Get current path
     const currentPath = window.location.pathname;
     
-    // List of valid paths
+    // List of valid paths (both with and without .html)
     const validPaths = [
         '/',
         '/index.html',
+        '/about',
         '/about.html',
+        '/gallery',
         '/gallery.html',
+        '/blog',
         '/blog.html',
+        '/games',
         '/games.html',
+        '/coding_tasks/tugas_all',
         '/coding_tasks/tugas_all.html',
+        '/coding_tasks/tugas1_biodata',
         '/coding_tasks/tugas1_biodata.html',
+        '/coding_tasks/tugas2_list_biodata',
         '/coding_tasks/tugas2_list_biodata.html'
     ];
     
     // Check if current path is valid
     const isValidPath = validPaths.includes(currentPath) || 
                        currentPath.startsWith('/coding_tasks/') || 
-                       currentPath.startsWith('/all/')
                        currentPath.endsWith('.html');
     
     // If not valid, redirect to 404 page
-    if (!isValidPath && !currentPath.includes('404.html')) {
+    if (!isValidPath && !currentPath.includes('404')) {
         // Store the attempted URL for reference
         sessionStorage.setItem('attemptedUrl', window.location.href);
         
         // Redirect to 404 page
-        window.location.href = '404.html';
+        window.location.href = '/404.html';
     }
     
     // If on 404 page, check if there's a referrer
-    if (currentPath.includes('404.html')) {
+    if (currentPath.includes('404')) {
         const attemptedUrl = sessionStorage.getItem('attemptedUrl');
         if (attemptedUrl) {
             console.log(`Attempted to access: ${attemptedUrl}`);
@@ -326,26 +332,36 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// Handle navigation links to prevent 404s
+// Handle navigation links to prevent 404s - Simplified version
 document.addEventListener('click', function(e) {
     const link = e.target.closest('a');
     if (link && link.hostname === window.location.hostname) {
         const href = link.getAttribute('href');
         
-        // Check if it's a relative link
-        if (href && href.startsWith('/') && !href.includes('http')) {
+        // Check if it's a relative link (with or without leading slash)
+        if (href && !href.includes('http')) {
             // Convert to full path for validation
-            const fullPath = href === '/' ? '/index.html' : href;
+            let fullPath = href;
+            if (!href.startsWith('/')) {
+                fullPath = '/' + href;
+            }
             
-            // List of valid paths
+            // List of valid paths (both with and without .html)
             const validPaths = [
                 '/index.html',
+                '/about',
                 '/about.html',
+                '/gallery',
                 '/gallery.html',
+                '/blog',
                 '/blog.html',
+                '/games',
                 '/games.html',
+                '/coding_tasks/tugas_all',
                 '/coding_tasks/tugas_all.html',
+                '/coding_tasks/tugas1_biodata',
                 '/coding_tasks/tugas1_biodata.html',
+                '/coding_tasks/tugas2_list_biodata',
                 '/coding_tasks/tugas2_list_biodata.html'
             ];
             
@@ -353,7 +369,7 @@ document.addEventListener('click', function(e) {
             if (!validPaths.includes(fullPath) && !fullPath.startsWith('/coding_tasks/')) {
                 e.preventDefault();
                 sessionStorage.setItem('attemptedUrl', fullPath);
-                window.location.href = '404.html';
+                window.location.href = '/404.html';
             }
         }
     }
