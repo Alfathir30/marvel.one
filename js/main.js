@@ -304,6 +304,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Check if current path is valid
     const isValidPath = validPaths.includes(currentPath) || 
                        currentPath.startsWith('/coding_tasks/') || 
+                       currentPath.startsWith('/all/')
                        currentPath.endsWith('.html');
     
     // If not valid, redirect to 404 page
