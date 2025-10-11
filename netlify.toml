@@ -1,8 +1,25 @@
 [build]
   publish = "."
 
+# Untuk website multi-page, hapus atau komentar redirect catch-all
+# Jika Anda ingin custom 404 page, biarkan Netlify menanganinya secara default
+
+# Opsi 1: Hapus redirect rule sama sekali (rekomendasi untuk multi-page site)
+# [[redirects]]
+#   from = "/*"
+#   to = "/404.html"
+#   status = 404
+#   force = false
+
+# Opsi 2: Jika Anda tetap ingin custom 404 page, gunakan ini:
 [[redirects]]
   from = "/*"
-  to = "/404.html"
-  status = 404
+  to = "/index.html"
+  status = 200
   force = false
+
+# Atau Opsi 3: Redirect spesifik untuk SPA routes (jika menggunakan client-side routing)
+# [[redirects]]
+#   from = "/app/*"
+#   to = "/index.html"
+#   status = 200
