@@ -164,6 +164,178 @@
             color: var(--accent-color);
         }
 
+        /* Custom Alert Modal Styles */
+        .alert-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 3000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .alert-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .alert-container {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transform: scale(0.8);
+            transition: transform 0.3s ease;
+        }
+
+        .alert-modal.active .alert-container {
+            transform: scale(1);
+        }
+
+        .alert-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            animation: bounceIn 0.6s ease;
+        }
+
+        @keyframes bounceIn {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.2);
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .alert-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--text-color);
+        }
+
+        .alert-message {
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .alert-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .alert-btn {
+            padding: 12px 25px;
+            border-radius: 50px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 1rem;
+        }
+
+        .alert-btn.primary {
+            background: linear-gradient(90deg, var(--accent-color), #a29bfe);
+            color: white;
+        }
+
+        .alert-btn.secondary {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            color: var(--text-color);
+        }
+
+        .alert-btn:hover {
+            transform: translateY(-3px);
+        }
+
+        /* Alert Type Specific Styles */
+        .alert-modal.success .alert-icon {
+            color: #4CAF50;
+        }
+
+        .alert-modal.error .alert-icon {
+            color: #f44336;
+        }
+
+        .alert-modal.warning .alert-icon {
+            color: #FF9800;
+        }
+
+        .alert-modal.info .alert-icon {
+            color: #2196F3;
+        }
+
+        .alert-modal.game-over .alert-icon {
+            color: #f44336;
+        }
+
+        .alert-modal.win .alert-icon {
+            color: #4CAF50;
+        }
+
+        /* Confetti Animation */
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #f0f;
+            position: absolute;
+            animation: confetti-fall 3s linear forwards;
+        }
+
+        @keyframes confetti-fall {
+            0% {
+                transform: translateY(-100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* Trophy Animation */
+        .trophy {
+            font-size: 4rem;
+            color: gold;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
+            animation: trophy-glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes trophy-glow {
+            from {
+                text-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
+            }
+            to {
+                text-shadow: 0 0 20px rgba(255, 215, 0, 0.9), 0 0 30px rgba(255, 215, 0, 0.7);
+            }
+        }
+
         /* Memory Game Styles */
         .memory-game {
             display: grid;
@@ -947,7 +1119,7 @@
                         <span class="play-btn">Mainkan <i class="fas fa-play"></i></span>
                     </div>
                     
-                    <!-- New Games -->
+                    <!-- Previous Games -->
                     <div class="game-card glass desktop-only" data-aos="fade-up" data-aos-delay="900" onclick="openGame('pong')">
                         <div class="game-icon">
                             <i class="fas fa-table-tennis-paddle-ball"></i>
@@ -992,6 +1164,88 @@
                         <p>Isi grid 9x9 dengan angka 1-9 tanpa pengulangan</p>
                         <span class="play-btn">Mainkan <i class="fas fa-play"></i></span>
                     </div>
+                    
+                    <!-- New Games -->
+                    <div class="game-card glass desktop-only" data-aos="fade-up" data-aos-delay="1400" onclick="openGame('spaceshooter')">
+                        <div class="game-icon">
+                            <i class="fas fa-rocket"></i>
+                        </div>
+                        <h3>Space Shooter</h3>
+                        <p>Kendalikan pesawat luar angkasa dan hancurkan asteroid</p>
+                        <span class="play-btn">Mainkan <i class="fas fa-play"></i></span>
+                    </div>
+                    
+                    <div class="game-card glass mobile-only" data-aos="fade-up" data-aos-delay="1500" onclick="openGame('flappybird')">
+                        <div class="game-icon">
+                            <i class="fas fa-dove"></i>
+                        </div>
+                        <h3>Flappy Bird</h3>
+                        <p>Bantu burung terbang melalui pipa-pipa</p>
+                        <span class="play-btn">Mainkan <i class="fas fa-play"></i></span>
+                    </div>
+                    
+                    <div class="game-card glass" data-aos="fade-up" data-aos-delay="1600" onclick="openGame('hangman')">
+                        <div class="game-icon">
+                            <i class="fas fa-user-hang"></i>
+                        </div>
+                        <h3>Hangman</h3>
+                        <p>Tebak kata sebelum gambar hangman selesai</p>
+                        <span class="play-btn">Mainkan <i class="fas fa-play"></i></span>
+                    </div>
+                    
+                    <div class="game-card glass" data-aos="fade-up" data-aos-delay="1700" onclick="openGame('mathchallenge')">
+                        <div class="game-icon">
+                            <i class="fas fa-calculator"></i>
+                        </div>
+                        <h3>Math Challenge</h3>
+                        <p>Uji kemampuan matematika Anda dengan soal cepat</p>
+                        <span class="play-btn">Mainkan <i class="fas fa-play"></i></span>
+                    </div>
+                    
+                    <div class="game-card glass" data-aos="fade-up" data-aos-delay="1800" onclick="openGame('whackamole')">
+                        <div class="game-icon">
+                            <i class="fas fa-hammer"></i>
+                        </div>
+                        <h3>Whack-a-Mole</h3>
+                        <p>Pukul tikus yang muncul dari lubang</p>
+                        <span class="play-btn">Mainkan <i class="fas fa-play"></i></span>
+                    </div>
+                    
+                    <div class="game-card glass" data-aos="fade-up" data-aos-delay="1900" onclick="openGame('simonsays')">
+                        <div class="game-icon">
+                            <i class="fas fa-gamepad"></i>
+                        </div>
+                        <h3>Simon Says</h3>
+                        <p>Ikuti pola warna yang ditampilkan</p>
+                        <span class="play-btn">Mainkan <i class="fas fa-play"></i></span>
+                    </div>
+                    
+                    <div class="game-card glass" data-aos="fade-up" data-aos-delay="2000" onclick="openGame('connectfour')">
+                        <div class="game-icon">
+                            <i class="fas fa-circle-notch"></i>
+                        </div>
+                        <h3>Connect Four</h3>
+                        <p>Susun empat bidak dalam satu baris untuk menang</p>
+                        <span class="play-btn">Mainkan <i class="fas fa-play"></i></span>
+                    </div>
+                    
+                    <div class="game-card glass" data-aos="fade-up" data-aos-delay="2100" onclick="openGame('wordsearch')">
+                        <div class="game-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <h3>Word Search</h3>
+                        <p>Cari kata-kata tersembunyi dalam grid huruf</p>
+                        <span class="play-btn">Mainkan <i class="fas fa-play"></i></span>
+                    </div>
+                    
+                    <div class="game-card glass" data-aos="fade-up" data-aos-delay="2200" onclick="openGame('typingspeed')">
+                        <div class="game-icon">
+                            <i class="fas fa-keyboard"></i>
+                        </div>
+                        <h3>Typing Speed Test</h3>
+                        <p>Uji kecepatan mengetik Anda</p>
+                        <span class="play-btn">Mainkan <i class="fas fa-play"></i></span>
+                    </div>
                 </div>
             </div>
         </section>
@@ -1004,6 +1258,21 @@
                 <i class="fas fa-times"></i>
             </button>
             <div id="gameContent"></div>
+        </div>
+    </div>
+
+    <!-- Custom Alert Modal -->
+    <div class="alert-modal" id="alertModal">
+        <div class="alert-container">
+            <div class="alert-icon" id="alertIcon">
+                <i class="fas fa-info-circle"></i>
+            </div>
+            <h3 class="alert-title" id="alertTitle">Notification</h3>
+            <p class="alert-message" id="alertMessage">This is a message</p>
+            <div class="alert-buttons">
+                <button class="alert-btn primary" id="alertPrimaryBtn">OK</button>
+                <button class="alert-btn secondary" id="alertSecondaryBtn" style="display: none;">Cancel</button>
+            </div>
         </div>
     </div>
 
@@ -1028,6 +1297,102 @@
             duration: 1000,
             once: true
         });
+
+        // Custom Alert System
+        function showAlert(type, title, message, primaryBtnText, secondaryBtnText, primaryCallback, secondaryCallback) {
+            const modal = document.getElementById('alertModal');
+            const icon = document.getElementById('alertIcon');
+            const titleElement = document.getElementById('alertTitle');
+            const messageElement = document.getElementById('alertMessage');
+            const primaryBtn = document.getElementById('alertPrimaryBtn');
+            const secondaryBtn = document.getElementById('alertSecondaryBtn');
+            
+            // Set content
+            titleElement.textContent = title;
+            messageElement.textContent = message;
+            primaryBtn.textContent = primaryBtnText || 'OK';
+            
+            // Set icon based on type
+            icon.innerHTML = '';
+            switch(type) {
+                case 'success':
+                    icon.innerHTML = '<i class="fas fa-check-circle"></i>';
+                    break;
+                case 'error':
+                    icon.innerHTML = '<i class="fas fa-times-circle"></i>';
+                    break;
+                case 'warning':
+                    icon.innerHTML = '<i class="fas fa-exclamation-triangle"></i>';
+                    break;
+                case 'info':
+                    icon.innerHTML = '<i class="fas fa-info-circle"></i>';
+                    break;
+                case 'game-over':
+                    icon.innerHTML = '<i class="fas fa-skull-crossbones"></i>';
+                    break;
+                case 'win':
+                    icon.innerHTML = '<i class="fas fa-trophy"></i>';
+                    break;
+                default:
+                    icon.innerHTML = '<i class="fas fa-info-circle"></i>';
+            }
+            
+            // Set modal type class
+            modal.className = 'alert-modal';
+            if (type) {
+                modal.classList.add(type);
+            }
+            
+            // Handle secondary button
+            if (secondaryBtnText) {
+                secondaryBtn.textContent = secondaryBtnText;
+                secondaryBtn.style.display = 'block';
+                secondaryBtn.onclick = function() {
+                    modal.classList.remove('active');
+                    if (secondaryCallback) secondaryCallback();
+                };
+            } else {
+                secondaryBtn.style.display = 'none';
+            }
+            
+            // Handle primary button
+            primaryBtn.onclick = function() {
+                modal.classList.remove('active');
+                if (primaryCallback) primaryCallback();
+            };
+            
+            // Show modal
+            modal.classList.add('active');
+            
+            // Add confetti for win alerts
+            if (type === 'win') {
+                createConfetti();
+            }
+        }
+        
+        // Create confetti effect
+        function createConfetti() {
+            const container = document.querySelector('.alert-container');
+            const colors = ['#f44336', '#e91e63', '#9c27b0', '#673ab7', '#3f51b5', '#2196f3', '#03a9f4', '#00bcd4', '#009688', '#4caf50', '#8bc34a', '#cddc39', '#ffeb3b', '#ffc107', '#ff9800', '#ff5722'];
+            
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + '%';
+                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.width = Math.random() * 10 + 5 + 'px';
+                    confetti.style.height = confetti.style.width;
+                    confetti.style.opacity = Math.random() * 0.7 + 0.3;
+                    container.appendChild(confetti);
+                    
+                    // Remove confetti after animation
+                    setTimeout(() => {
+                        confetti.remove();
+                    }, 3000);
+                }, i * 30);
+            }
+        }
 
         // Game Modal Functions
         function openGame(gameType) {
@@ -1083,6 +1448,42 @@
                     content.innerHTML = getSudokuHTML();
                     initSudoku();
                     break;
+                case 'spaceshooter':
+                    content.innerHTML = getSpaceShooterHTML();
+                    initSpaceShooterGame();
+                    break;
+                case 'flappybird':
+                    content.innerHTML = getFlappyBirdHTML();
+                    initFlappyBirdGame();
+                    break;
+                case 'hangman':
+                    content.innerHTML = getHangmanHTML();
+                    initHangmanGame();
+                    break;
+                case 'mathchallenge':
+                    content.innerHTML = getMathChallengeHTML();
+                    initMathChallengeGame();
+                    break;
+                case 'whackamole':
+                    content.innerHTML = getWhackAMoleHTML();
+                    initWhackAMoleGame();
+                    break;
+                case 'simonsays':
+                    content.innerHTML = getSimonSaysHTML();
+                    initSimonSaysGame();
+                    break;
+                case 'connectfour':
+                    content.innerHTML = getConnectFourHTML();
+                    initConnectFourGame();
+                    break;
+                case 'wordsearch':
+                    content.innerHTML = getWordSearchHTML();
+                    initWordSearchGame();
+                    break;
+                case 'typingspeed':
+                    content.innerHTML = getTypingSpeedHTML();
+                    initTypingSpeedGame();
+                    break;
             }
             
             modal.classList.add('active');
@@ -1106,6 +1507,21 @@
             }
             if (window.brickBreakerInterval) {
                 clearInterval(window.brickBreakerInterval);
+            }
+            if (window.spaceShooterInterval) {
+                clearInterval(window.spaceShooterInterval);
+            }
+            if (window.flappyBirdInterval) {
+                clearInterval(window.flappyBirdInterval);
+            }
+            if (window.whackAMoleInterval) {
+                clearInterval(window.whackAMoleInterval);
+            }
+            if (window.simonSaysInterval) {
+                clearInterval(window.simonSaysInterval);
+            }
+            if (window.typingSpeedInterval) {
+                clearInterval(window.typingSpeedInterval);
             }
         }
 
@@ -1191,7 +1607,9 @@
                         if (matches === emojis.length) {
                             clearInterval(window.memoryTimer);
                             setTimeout(() => {
-                                alert(`Congratulations! You won in ${moves} moves!`);
+                                showAlert('win', 'Congratulations!', `You won in ${moves} moves!`, 'Play Again', 'Close', 
+                                    () => { initMemoryGame(); }, 
+                                    () => { closeGame(); });
                             }, 500);
                         }
                         
@@ -1353,9 +1771,13 @@
                     highScore = score;
                     localStorage.setItem('snakeHighScore', highScore);
                     document.getElementById('snakeHighScore').textContent = highScore;
-                    alert(`Game Over! New High Score: ${score}!`);
+                    showAlert('success', 'New High Score!', `Your score: ${score}`, 'Play Again', 'Close', 
+                                () => { initSnakeGame(); }, 
+                                () => { closeGame(); });
                 } else {
-                    alert(`Game Over! Score: ${score}`);
+                    showAlert('game-over', 'Game Over', `Your score: ${score}`, 'Try Again', 'Close', 
+                                () => { initSnakeGame(); }, 
+                                () => { closeGame(); });
                 }
                 
                 // Reset game
@@ -1413,12 +1835,16 @@
                 if (checkWinner()) {
                     document.getElementById('currentPlayer').textContent = currentPlayer;
                     setTimeout(() => {
-                        alert(`Player ${currentPlayer} wins!`);
+                        showAlert('win', 'Player Wins!', `Player ${currentPlayer} wins the game!`, 'Play Again', 'Close', 
+                                    () => { initTicTacToe(); }, 
+                                    () => { closeGame(); });
                         gameActive = false;
                     }, 100);
                 } else if (gameBoard.every(cell => cell !== '')) {
                     setTimeout(() => {
-                        alert("It's a draw!");
+                        showAlert('info', "It's a Draw!", "The game ended in a draw!", 'Play Again', 'Close', 
+                                    () => { initTicTacToe(); }, 
+                                    () => { closeGame(); });
                         gameActive = false;
                     }, 100);
                 } else {
@@ -1555,16 +1981,24 @@
             
             function showResults() {
                 const percentage = (score / questions.length) * 100;
-                let message = '';
+                let title, message, type;
                 
                 if (percentage === 100) {
-                    message = "Perfect! You got all questions right! 🎉";
+                    title = "Perfect!";
+                    message = "You got all questions right! 🎉";
+                    type = "success";
                 } else if (percentage >= 80) {
-                    message = "Excellent! You know your stuff! 🌟";
+                    title = "Excellent!";
+                    message = "You know your stuff! 🌟";
+                    type = "success";
                 } else if (percentage >= 60) {
-                    message = "Good job! Keep learning! 👍";
+                    title = "Good Job!";
+                    message = "Keep learning! 👍";
+                    type = "info";
                 } else {
-                    message = "Nice try! Better luck next time! 📚";
+                    title = "Nice Try!";
+                    message = "Better luck next time! 📚";
+                    type = "warning";
                 }
                 
                 document.getElementById('quizQuestion').innerHTML = `
@@ -1575,6 +2009,12 @@
                 document.getElementById('quizOptions').innerHTML = '';
                 document.getElementById('currentQuestion').textContent = questions.length;
                 document.getElementById('progressFill').style.width = '100%';
+                
+                setTimeout(() => {
+                    showAlert(type, title, `Your Score: ${score}/${questions.length} (${percentage}%)`, 'New Quiz', 'Close', 
+                                () => { initQuizGame(); }, 
+                                () => { closeGame(); });
+                }, 500);
             }
             
             loadQuestion();
@@ -1922,7 +2362,9 @@
             
             function gameOver() {
                 gameRunning = false;
-                alert(`Game Over! Your score: ${score}`);
+                showAlert('game-over', 'Game Over', `Your score: ${score}`, 'Try Again', 'Close', 
+                            () => { startCatchBall(); }, 
+                            () => { closeGame(); });
             }
         }
 
@@ -2001,9 +2443,13 @@
                     if (score > 0 && score % 30 === 0) {
                         level++;
                         document.getElementById('wordLevel').textContent = level;
-                        alert(`Level Up! Anda sekarang di level ${level}!`);
+                        showAlert('success', 'Level Up!', `Anda sekarang di level ${level}!`, 'Continue', 'Close', 
+                                    () => { loadWord(); }, 
+                                    () => { closeGame(); });
                     } else {
-                        alert('Benar! Lanjut ke kata berikutnya.');
+                        showAlert('success', 'Correct!', 'Lanjut ke kata berikutnya.', 'Continue', 'Close', 
+                                    () => { loadWord(); }, 
+                                    () => { closeGame(); });
                     }
                     
                     currentWordIndex++;
@@ -2018,16 +2464,21 @@
                     }
                     
                     if (correctChars >= currentWord.word.length * 0.7) {
-                        alert('Hampir benar! Coba lagi.');
+                        showAlert('warning', 'Almost Correct!', 'Hampir benar! Coba lagi.', 'Try Again', 'Close', 
+                                    () => { document.getElementById('wordInput').value = ''; }, 
+                                    () => { closeGame(); });
                     } else {
-                        alert('Jawaban salah. Coba lagi.');
+                        showAlert('error', 'Incorrect', 'Jawaban salah. Coba lagi.', 'Try Again', 'Close', 
+                                    () => { document.getElementById('wordInput').value = ''; }, 
+                                    () => { closeGame(); });
                     }
                 }
             };
             
             window.getHint = function() {
                 if (hintsUsed >= 2) {
-                    alert('Anda sudah menggunakan semua petunjuk untuk kata ini.');
+                    showAlert('warning', 'No More Hints', 'Anda sudah menggunakan semua petunjuk untuk kata ini.', 'OK', '', 
+                                () => { return; });
                     return;
                 }
                 
@@ -2255,11 +2706,15 @@
                 if (player1.score >= 5 || player2.score >= 5) {
                     gameRunning = false;
                     const winner = player1.score >= 5 ? "Player 1" : "Player 2";
-                    alert(`${winner} wins!`);
-                    player1.score = 0;
-                    player2.score = 0;
-                    document.getElementById('pongScore1').textContent = player1.score;
-                    document.getElementById('pongScore2').textContent = player2.score;
+                    showAlert('win', 'Game Over!', `${winner} wins the game!`, 'Play Again', 'Close', 
+                                () => { 
+                                    player1.score = 0;
+                                    player2.score = 0;
+                                    document.getElementById('pongScore1').textContent = player1.score;
+                                    document.getElementById('pongScore2').textContent = player2.score;
+                                    startPongGame(); 
+                                }, 
+                                () => { closeGame(); });
                 }
             }
             
@@ -2470,14 +2925,18 @@
                     // Check for game over
                     if (isGameOver()) {
                         setTimeout(() => {
-                            alert(`Game Over! Your score: ${score}`);
+                            showAlert('info', 'Game Over', `Your score: ${score}`, 'Try Again', 'Close', 
+                                        () => { init2048Game(); }, 
+                                        () => { closeGame(); });
                         }, 300);
                     }
                     
                     // Check for win
                     if (hasWon()) {
                         setTimeout(() => {
-                            alert(`Congratulations! You reached 2048! Your score: ${score}`);
+                            showAlert('win', 'Congratulations!', `You reached 2048! Your score: ${score}`, 'Play Again', 'Close', 
+                                        () => { init2048Game(); }, 
+                                        () => { closeGame(); });
                         }, 300);
                     }
                 }
@@ -2730,7 +3189,9 @@
                                 // Check if all bricks are destroyed
                                 if (score === brickRowCount * brickColumnCount * 10) {
                                     gameRunning = false;
-                                    alert('Congratulations! You won!');
+                                    showAlert('win', 'Congratulations!', 'You destroyed all the bricks!', 'Play Again', 'Close', 
+                                                () => { startBrickBreaker(); }, 
+                                                () => { closeGame(); });
                                 }
                             }
                         }
@@ -2809,7 +3270,9 @@
                         
                         if (lives === 0) {
                             gameRunning = false;
-                            alert('Game Over! Your score: ' + score);
+                            showAlert('game-over', 'Game Over', `Your score: ${score}`, 'Try Again', 'Close', 
+                                        () => { startBrickBreaker(); }, 
+                                        () => { closeGame(); });
                         } else {
                             // Reset ball position
                             ball.x = canvas.width / 2;
@@ -2920,12 +3383,15 @@
                     if (playerScore === 5 || computerScore === 5) {
                         const winner = playerScore === 5 ? 'You' : 'Computer';
                         setTimeout(() => {
-                            alert(`${winner} won the game!`);
-                            playerScore = 0;
-                            computerScore = 0;
-                            document.getElementById('rpsPlayerScore').textContent = playerScore;
-                            document.getElementById('rpsComputerScore').textContent = computerScore;
-                            resultDiv.innerHTML = 'Make your choice!';
+                            showAlert('win', 'Game Over!', `${winner} won the game!`, 'Play Again', 'Close', 
+                                        () => { 
+                                            playerScore = 0;
+                                            computerScore = 0;
+                                            document.getElementById('rpsPlayerScore').textContent = playerScore;
+                                            document.getElementById('rpsComputerScore').textContent = computerScore;
+                                            resultDiv.innerHTML = 'Make your choice!';
+                                        }, 
+                                        () => { closeGame(); });
                         }, 500);
                     }
                 });
@@ -3080,7 +3546,9 @@
                         // Check if puzzle is complete
                         if (isPuzzleComplete()) {
                             clearInterval(window.sudokuTimer);
-                            alert('Congratulations! You solved the puzzle!');
+                            showAlert('win', 'Congratulations!', 'You solved the puzzle!', 'New Game', 'Close', 
+                                        () => { initSudoku(); }, 
+                                        () => { closeGame(); });
                         }
                     } else {
                         selectedCell.textContent = value;
@@ -3091,7 +3559,9 @@
                         
                         if (mistakes >= 3) {
                             clearInterval(window.sudokuTimer);
-                            alert('Game Over! You made too many mistakes.');
+                            showAlert('game-over', 'Game Over', 'You made too many mistakes.', 'Try Again', 'Close', 
+                                        () => { initSudoku(); }, 
+                                        () => { closeGame(); });
                         }
                     }
                 });
@@ -3129,10 +3599,1953 @@
             displayBoard();
         }
 
+        // New Games Implementation
+        
+        // Space Shooter Game
+        function getSpaceShooterHTML() {
+            return `
+                <div class="game-header">
+                    <h2>Space Shooter</h2>
+                    <p>Gunakan arrow keys untuk bergerak dan spasi untuk menembak!</p>
+                </div>
+                <div class="game-info">
+                    <div>Score: <span id="spaceShooterScore">0</span></div>
+                    <div>Lives: <span id="spaceShooterLives">3</span></div>
+                </div>
+                <canvas id="spaceShooterCanvas" width="600" height="400"></canvas>
+                <div class="game-controls">
+                    <div class="game-buttons">
+                        <button class="game-btn primary" onclick="startSpaceShooterGame()">Start Game</button>
+                        <button class="game-btn secondary" onclick="pauseSpaceShooterGame()">Pause</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function initSpaceShooterGame() {
+            const canvas = document.getElementById('spaceShooterCanvas');
+            const ctx = canvas.getContext('2d');
+            
+            // Game variables
+            let player = {
+                x: canvas.width / 2 - 25,
+                y: canvas.height - 60,
+                width: 50,
+                height: 50,
+                speed: 5
+            };
+            
+            let bullets = [];
+            let asteroids = [];
+            let particles = [];
+            let score = 0;
+            let lives = 3;
+            let gameRunning = false;
+            let keys = {};
+            
+            document.getElementById('spaceShooterScore').textContent = score;
+            document.getElementById('spaceShooterLives').textContent = lives;
+            
+            // Keyboard controls
+            document.addEventListener('keydown', (e) => {
+                keys[e.key] = true;
+                
+                if (e.key === ' ' && gameRunning) {
+                    e.preventDefault();
+                    shootBullet();
+                }
+            });
+            
+            document.addEventListener('keyup', (e) => {
+                keys[e.key] = false;
+            });
+            
+            window.startSpaceShooterGame = function() {
+                if (gameRunning) return;
+                gameRunning = true;
+                score = 0;
+                lives = 3;
+                bullets = [];
+                asteroids = [];
+                particles = [];
+                document.getElementById('spaceShooterScore').textContent = score;
+                document.getElementById('spaceShooterLives').textContent = lives;
+                gameLoop();
+            };
+            
+            window.pauseSpaceShooterGame = function() {
+                gameRunning = false;
+            };
+            
+            function shootBullet() {
+                bullets.push({
+                    x: player.x + player.width / 2 - 2,
+                    y: player.y,
+                    width: 4,
+                    height: 10,
+                    speed: 7
+                });
+            }
+            
+            function createAsteroid() {
+                const size = Math.random() * 30 + 20;
+                asteroids.push({
+                    x: Math.random() * (canvas.width - size),
+                    y: -size,
+                    width: size,
+                    height: size,
+                    speed: Math.random() * 2 + 1,
+                    rotation: 0,
+                    rotationSpeed: Math.random() * 0.1 - 0.05
+                });
+            }
+            
+            function createParticles(x, y) {
+                for (let i = 0; i < 15; i++) {
+                    particles.push({
+                        x: x,
+                        y: y,
+                        vx: (Math.random() - 0.5) * 8,
+                        vy: (Math.random() - 0.5) * 8,
+                        size: Math.random() * 3 + 1,
+                        life: 1
+                    });
+                }
+            }
+            
+            function updatePlayer() {
+                if (keys['ArrowLeft'] && player.x > 0) {
+                    player.x -= player.speed;
+                }
+                if (keys['ArrowRight'] && player.x < canvas.width - player.width) {
+                    player.x += player.speed;
+                }
+            }
+            
+            function updateBullets() {
+                for (let i = bullets.length - 1; i >= 0; i--) {
+                    bullets[i].y -= bullets[i].speed;
+                    
+                    // Remove bullets that go off screen
+                    if (bullets[i].y < 0) {
+                        bullets.splice(i, 1);
+                    }
+                }
+            }
+            
+            function updateAsteroids() {
+                // Create new asteroids at intervals
+                if (Math.random() < 0.02) {
+                    createAsteroid();
+                }
+                
+                for (let i = asteroids.length - 1; i >= 0; i--) {
+                    asteroids[i].y += asteroids[i].speed;
+                    asteroids[i].rotation += asteroids[i].rotationSpeed;
+                    
+                    // Remove asteroids that go off screen
+                    if (asteroids[i].y > canvas.height) {
+                        asteroids.splice(i, 1);
+                    }
+                }
+            }
+            
+            function updateParticles() {
+                for (let i = particles.length - 1; i >= 0; i--) {
+                    particles[i].x += particles[i].vx;
+                    particles[i].y += particles[i].vy;
+                    particles[i].life -= 0.02;
+                    
+                    if (particles[i].life <= 0) {
+                        particles.splice(i, 1);
+                    }
+                }
+            }
+            
+            function checkCollisions() {
+                // Check bullet-asteroid collisions
+                for (let i = bullets.length - 1; i >= 0; i--) {
+                    for (let j = asteroids.length - 1; j >= 0; j--) {
+                        if (
+                            bullets[i].x < asteroids[j].x + asteroids[j].width &&
+                            bullets[i].x + bullets[i].width > asteroids[j].x &&
+                            bullets[i].y < asteroids[j].y + asteroids[j].height &&
+                            bullets[i].y + bullets[i].height > asteroids[j].y
+                        ) {
+                            // Create explosion particles
+                            createParticles(
+                                asteroids[j].x + asteroids[j].width / 2,
+                                asteroids[j].y + asteroids[j].height / 2
+                            );
+                            
+                            // Remove bullet and asteroid
+                            bullets.splice(i, 1);
+                            asteroids.splice(j, 1);
+                            
+                            // Increase score
+                            score += 10;
+                            document.getElementById('spaceShooterScore').textContent = score;
+                            
+                            break;
+                        }
+                    }
+                }
+                
+                // Check player-asteroid collisions
+                for (let i = asteroids.length - 1; i >= 0; i--) {
+                    if (
+                        player.x < asteroids[i].x + asteroids[i].width &&
+                        player.x + player.width > asteroids[i].x &&
+                        player.y < asteroids[i].y + asteroids[i].height &&
+                        player.y + player.height > asteroids[i].y
+                    ) {
+                        // Create explosion particles
+                        createParticles(
+                            asteroids[i].x + asteroids[i].width / 2,
+                            asteroids[i].y + asteroids[i].height / 2
+                        );
+                        
+                        // Remove asteroid
+                        asteroids.splice(i, 1);
+                        
+                        // Decrease lives
+                        lives--;
+                        document.getElementById('spaceShooterLives').textContent = lives;
+                        
+                        if (lives <= 0) {
+                            gameRunning = false;
+                            showAlert('game-over', 'Game Over', `Your score: ${score}`, 'Try Again', 'Close', 
+                                        () => { startSpaceShooterGame(); }, 
+                                        () => { closeGame(); });
+                        }
+                        
+                        break;
+                    }
+                }
+            }
+            
+            function drawPlayer() {
+                // Draw spaceship shape
+                ctx.fillStyle = '#4CAF50';
+                ctx.beginPath();
+                ctx.moveTo(player.x + player.width / 2, player.y);
+                ctx.lineTo(player.x, player.y + player.height);
+                ctx.lineTo(player.x + player.width / 2, player.y + player.height - 10);
+                ctx.lineTo(player.x + player.width, player.y + player.height);
+                ctx.closePath();
+                ctx.fill();
+            }
+            
+            function drawBullets() {
+                ctx.fillStyle = '#FFEB3B';
+                bullets.forEach(bullet => {
+                    ctx.fillRect(bullet.x, bullet.y, bullet.width, bullet.height);
+                });
+            }
+            
+            function drawAsteroids() {
+                ctx.fillStyle = '#9E9E9E';
+                asteroids.forEach(asteroid => {
+                    ctx.save();
+                    ctx.translate(asteroid.x + asteroid.width / 2, asteroid.y + asteroid.height / 2);
+                    ctx.rotate(asteroid.rotation);
+                    ctx.fillRect(-asteroid.width / 2, -asteroid.height / 2, asteroid.width, asteroid.height);
+                    ctx.restore();
+                });
+            }
+            
+            function drawParticles() {
+                particles.forEach(particle => {
+                    ctx.fillStyle = `rgba(255, 255, 255, ${particle.life})`;
+                    ctx.fillRect(particle.x, particle.y, particle.size, particle.size);
+                });
+            }
+            
+            function drawStars() {
+                // Draw static stars in background
+                ctx.fillStyle = 'white';
+                for (let i = 0; i < 100; i++) {
+                    const x = (i * 137.5) % canvas.width;
+                    const y = (i * 89.7) % canvas.height;
+                    const size = (i % 3) + 1;
+                    ctx.fillRect(x, y, size, size);
+                }
+            }
+            
+            function gameLoop() {
+                if (!gameRunning) return;
+                
+                // Clear canvas
+                ctx.fillStyle = 'black';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                
+                // Draw game elements
+                drawStars();
+                drawPlayer();
+                drawBullets();
+                drawAsteroids();
+                drawParticles();
+                
+                // Update game elements
+                updatePlayer();
+                updateBullets();
+                updateAsteroids();
+                updateParticles();
+                checkCollisions();
+                
+                requestAnimationFrame(gameLoop);
+            }
+        }
+
+        // Flappy Bird Game
+        function getFlappyBirdHTML() {
+            return `
+                <div class="game-header">
+                    <h2>Flappy Bird</h2>
+                    <p>Ketuk layar untuk membuat burung terbang!</p>
+                </div>
+                <div class="game-info">
+                    <div>Score: <span id="flappyBirdScore">0</span></div>
+                    <div>Best: <span id="flappyBirdBest">0</span></div>
+                </div>
+                <canvas id="flappyBirdCanvas" width="350" height="500"></canvas>
+                <div class="game-controls">
+                    <div class="game-buttons">
+                        <button class="game-btn primary" onclick="startFlappyBirdGame()">Start Game</button>
+                        <button class="game-btn secondary" onclick="pauseFlappyBirdGame()">Pause</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function initFlappyBirdGame() {
+            const canvas = document.getElementById('flappyBirdCanvas');
+            const ctx = canvas.getContext('2d');
+            
+            // Game variables
+            let bird = {
+                x: 50,
+                y: canvas.height / 2,
+                radius: 15,
+                velocity: 0,
+                gravity: 0.5,
+                jump: -8
+            };
+            
+            let pipes = [];
+            let score = 0;
+            let best = localStorage.getItem('flappyBirdBest') || 0;
+            let gameRunning = false;
+            let frameCount = 0;
+            
+            document.getElementById('flappyBirdBest').textContent = best;
+            
+            // Touch/click controls
+            canvas.addEventListener('click', () => {
+                if (gameRunning) {
+                    bird.velocity = bird.jump;
+                }
+            });
+            
+            canvas.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                if (gameRunning) {
+                    bird.velocity = bird.jump;
+                }
+            });
+            
+            window.startFlappyBirdGame = function() {
+                if (gameRunning) return;
+                gameRunning = true;
+                bird.y = canvas.height / 2;
+                bird.velocity = 0;
+                pipes = [];
+                score = 0;
+                frameCount = 0;
+                document.getElementById('flappyBirdScore').textContent = score;
+                gameLoop();
+            };
+            
+            window.pauseFlappyBirdGame = function() {
+                gameRunning = false;
+            };
+            
+            function createPipe() {
+                const gap = 120;
+                const minHeight = 50;
+                const maxHeight = canvas.height - gap - minHeight;
+                const height = Math.floor(Math.random() * maxHeight) + minHeight;
+                
+                pipes.push({
+                    x: canvas.width,
+                    y: 0,
+                    width: 60,
+                    height: height,
+                    passed: false
+                });
+                
+                pipes.push({
+                    x: canvas.width,
+                    y: height + gap,
+                    width: 60,
+                    height: canvas.height - height - gap,
+                    passed: false
+                });
+            }
+            
+            function updateBird() {
+                bird.velocity += bird.gravity;
+                bird.y += bird.velocity;
+                
+                // Check boundaries
+                if (bird.y + bird.radius > canvas.height) {
+                    gameOver();
+                    return;
+                }
+                
+                if (bird.y - bird.radius < 0) {
+                    bird.y = bird.radius;
+                    bird.velocity = 0;
+                }
+            }
+            
+            function updatePipes() {
+                // Create new pipes at intervals
+                if (frameCount % 100 === 0) {
+                    createPipe();
+                }
+                
+                // Move pipes
+                for (let i = pipes.length - 1; i >= 0; i--) {
+                    pipes[i].x -= 2;
+                    
+                    // Remove pipes that are off screen
+                    if (pipes[i].x + pipes[i].width < 0) {
+                        pipes.splice(i, 1);
+                    }
+                    
+                    // Check if bird passed the pipe
+                    if (!pipes[i].passed && pipes[i].x + pipes[i].width < bird.x) {
+                        pipes[i].passed = true;
+                        score++;
+                        document.getElementById('flappyBirdScore').textContent = score;
+                    }
+                }
+            }
+            
+            function checkCollisions() {
+                for (let pipe of pipes) {
+                    if (
+                        bird.x + bird.radius > pipe.x &&
+                        bird.x - bird.radius < pipe.x + pipe.width &&
+                        bird.y + bird.radius > pipe.y &&
+                        bird.y - bird.radius < pipe.y + pipe.height
+                    ) {
+                        gameOver();
+                        return;
+                    }
+                }
+            }
+            
+            function gameOver() {
+                gameRunning = false;
+                
+                if (score > best) {
+                    best = score;
+                    localStorage.setItem('flappyBirdBest', best);
+                    document.getElementById('flappyBirdBest').textContent = best;
+                    showAlert('success', 'New Best Score!', `Your score: ${score}!`, 'Play Again', 'Close', 
+                                () => { startFlappyBirdGame(); }, 
+                                () => { closeGame(); });
+                } else {
+                    showAlert('game-over', 'Game Over', `Your score: ${score}`, 'Try Again', 'Close', 
+                                () => { startFlappyBirdGame(); }, 
+                                () => { closeGame(); });
+                }
+            }
+            
+            function drawBird() {
+                // Draw bird as a circle
+                ctx.fillStyle = '#FFEB3B';
+                ctx.beginPath();
+                ctx.arc(bird.x, bird.y, bird.radius, 0, Math.PI * 2);
+                ctx.fill();
+                
+                // Draw eye
+                ctx.fillStyle = 'black';
+                ctx.beginPath();
+                ctx.arc(bird.x + 5, bird.y - 5, 3, 0, Math.PI * 2);
+                ctx.fill();
+                
+                // Draw beak
+                ctx.fillStyle = '#FF9800';
+                ctx.beginPath();
+                ctx.moveTo(bird.x + bird.radius, bird.y);
+                ctx.lineTo(bird.x + bird.radius + 8, bird.y);
+                ctx.lineTo(bird.x + bird.radius, bird.y + 5);
+                ctx.closePath();
+                ctx.fill();
+            }
+            
+            function drawPipes() {
+                ctx.fillStyle = '#4CAF50';
+                pipes.forEach(pipe => {
+                    ctx.fillRect(pipe.x, pipe.y, pipe.width, pipe.height);
+                });
+            }
+            
+            function drawBackground() {
+                // Draw sky gradient
+                const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+                gradient.addColorStop(0, '#87CEEB');
+                gradient.addColorStop(1, '#98D8E8');
+                ctx.fillStyle = gradient;
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                
+                // Draw clouds
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+                for (let i = 0; i < 3; i++) {
+                    const x = (i * 150 + frameCount * 0.2) % (canvas.width + 100) - 50;
+                    const y = 50 + i * 40;
+                    
+                    // Draw cloud with circles
+                    ctx.beginPath();
+                    ctx.arc(x, y, 25, 0, Math.PI * 2);
+                    ctx.arc(x + 25, y, 35, 0, Math.PI * 2);
+                    ctx.arc(x + 50, y, 25, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+            
+            function gameLoop() {
+                if (!gameRunning) return;
+                
+                frameCount++;
+                
+                // Clear canvas and draw background
+                drawBackground();
+                
+                // Draw game elements
+                drawPipes();
+                drawBird();
+                
+                // Update game elements
+                updateBird();
+                updatePipes();
+                checkCollisions();
+                
+                requestAnimationFrame(gameLoop);
+            }
+        }
+
+        // Hangman Game
+        function getHangmanHTML() {
+            return `
+                <div class="game-header">
+                    <h2>Hangman</h2>
+                    <p>Tebak kata sebelum gambar hangman selesai!</p>
+                </div>
+                <div class="game-info">
+                    <div>Mistakes: <span id="hangmanMistakes">0/6</span></div>
+                    <div>Category: <span id="hangmanCategory">Animals</span></div>
+                </div>
+                <div class="hangman-container">
+                    <div class="hangman-drawing" id="hangmanDrawing"></div>
+                    <div class="hangman-word" id="hangmanWord"></div>
+                    <div class="hangman-letters" id="hangmanLetters"></div>
+                    <div class="game-buttons">
+                        <button class="game-btn primary" onclick="initHangmanGame()">New Game</button>
+                        <button class="game-btn secondary" onclick="closeGame()">Close</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function initHangmanGame() {
+            const words = {
+                'Animals': ['ELEPHANT', 'GIRAFFE', 'PENGUIN', 'DOLPHIN', 'BUTTERFLY'],
+                'Countries': ['INDONESIA', 'JAPAN', 'BRAZIL', 'CANADA', 'AUSTRALIA'],
+                'Fruits': ['MANGO', 'STRAWBERRY', 'PINEAPPLE', 'WATERMELON', 'ORANGE'],
+                'Sports': ['FOOTBALL', 'BASKETBALL', 'TENNIS', 'SWIMMING', 'VOLLEYBALL']
+            };
+            
+            const categories = Object.keys(words);
+            const randomCategory = categories[Math.floor(Math.random() * categories.length)];
+            const categoryWords = words[randomCategory];
+            const randomWord = categoryWords[Math.floor(Math.random() * categoryWords.length)];
+            
+            let word = randomWord.split('');
+            let guessedLetters = [];
+            let mistakes = 0;
+            let maxMistakes = 6;
+            
+            document.getElementById('hangmanCategory').textContent = randomCategory;
+            document.getElementById('hangmanMistakes').textContent = `${mistakes}/${maxMistakes}`;
+            
+            // Initialize word display
+            updateWordDisplay();
+            
+            // Initialize letter buttons
+            const lettersContainer = document.getElementById('hangmanLetters');
+            lettersContainer.innerHTML = '';
+            
+            for (let i = 65; i <= 90; i++) {
+                const letter = String.fromCharCode(i);
+                const button = document.createElement('div');
+                button.className = 'hangman-letter';
+                button.textContent = letter;
+                button.addEventListener('click', () => guessLetter(letter, button));
+                lettersContainer.appendChild(button);
+            }
+            
+            function updateWordDisplay() {
+                const wordDisplay = document.getElementById('hangmanWord');
+                wordDisplay.textContent = word.map(letter => 
+                    guessedLetters.includes(letter) ? letter : '_'
+                ).join(' ');
+            }
+            
+            function updateDrawing() {
+                const drawing = document.getElementById('hangmanDrawing');
+                const stages = [
+                    '', // 0 mistakes
+                    '<div>🌳</div>', // 1 mistake - gallows
+                    '<div>🌳\n😵</div>', // 2 mistakes - head
+                    '<div>🌳\n😵\n|</div>', // 3 mistakes - body
+                    '<div>🌳\n😵\n/|</div>', // 4 mistakes - one arm
+                    '<div>🌳\n😵\n/|\\</div>', // 5 mistakes - both arms
+                    '<div>🌳\n😵\n/|\\\n/ \\</div>' // 6 mistakes - both legs (game over)
+                ];
+                
+                drawing.innerHTML = stages[mistakes];
+            }
+            
+            function guessLetter(letter, button) {
+                if (guessedLetters.includes(letter) || mistakes >= maxMistakes) return;
+                
+                guessedLetters.push(letter);
+                button.classList.add('used');
+                
+                if (word.includes(letter)) {
+                    button.classList.add('correct');
+                    updateWordDisplay();
+                    
+                    // Check if word is complete
+                    if (word.every(l => guessedLetters.includes(l))) {
+                        setTimeout(() => {
+                            showAlert('success', 'Congratulations!', 'You guessed the word!', 'Play Again', 'Close', 
+                                        () => { initHangmanGame(); }, 
+                                        () => { closeGame(); });
+                        }, 300);
+                    }
+                } else {
+                    button.classList.add('incorrect');
+                    mistakes++;
+                    document.getElementById('hangmanMistakes').textContent = `${mistakes}/${maxMistakes}`;
+                    updateDrawing();
+                    
+                    if (mistakes >= maxMistakes) {
+                        setTimeout(() => {
+                            showAlert('error', 'Game Over', `The word was: ${word.join('')}`, 'Try Again', 'Close', 
+                                        () => { initHangmanGame(); }, 
+                                        () => { closeGame(); });
+                        }, 300);
+                    }
+                }
+            }
+            
+            // Initialize drawing
+            updateDrawing();
+        }
+
+        // Math Challenge Game
+        function getMathChallengeHTML() {
+            return `
+                <div class="game-header">
+                    <h2>Math Challenge</h2>
+                    <p>Selesaikan soal matematika secepat mungkin!</p>
+                </div>
+                <div class="game-info">
+                    <div>Score: <span id="mathScore">0</span></div>
+                    <div>Time: <span id="mathTime">30</span></div>
+                    <div>Level: <span id="mathLevel">1</span></div>
+                </div>
+                <div class="math-challenge-container">
+                    <div class="math-question" id="mathQuestion"></div>
+                    <input type="number" class="math-input" id="mathInput" placeholder="Your answer">
+                    <div class="game-buttons">
+                        <button class="game-btn primary" onclick="checkMathAnswer()">Submit</button>
+                        <button class="game-btn secondary" onclick="initMathChallengeGame()">New Game</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function initMathChallengeGame() {
+            let score = 0;
+            let level = 1;
+            let timeLeft = 30;
+            let currentQuestion = null;
+            let correctAnswer = null;
+            let gameActive = false;
+            let timerInterval = null;
+            
+            document.getElementById('mathScore').textContent = score;
+            document.getElementById('mathLevel').textContent = level;
+            document.getElementById('mathTime').textContent = timeLeft;
+            
+            // Allow submitting with Enter key
+            document.getElementById('mathInput').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter' && gameActive) {
+                    checkMathAnswer();
+                }
+            });
+            
+            function generateQuestion() {
+                const operations = ['+', '-', '*', '/'];
+                const operation = operations[Math.floor(Math.random() * operations.length)];
+                
+                let num1, num2;
+                
+                // Adjust difficulty based on level
+                if (level <= 2) {
+                    // Easy: single digit numbers
+                    num1 = Math.floor(Math.random() * 10) + 1;
+                    num2 = Math.floor(Math.random() * 10) + 1;
+                } else if (level <= 4) {
+                    // Medium: two digit numbers
+                    num1 = Math.floor(Math.random() * 20) + 1;
+                    num2 = Math.floor(Math.random() * 20) + 1;
+                } else {
+                    // Hard: larger numbers
+                    num1 = Math.floor(Math.random() * 50) + 1;
+                    num2 = Math.floor(Math.random() * 50) + 1;
+                }
+                
+                // For division, ensure it results in a whole number
+                if (operation === '/') {
+                    num1 = num2 * Math.floor(Math.random() * 10 + 1);
+                }
+                
+                // Calculate correct answer
+                switch (operation) {
+                    case '+':
+                        correctAnswer = num1 + num2;
+                        break;
+                    case '-':
+                        correctAnswer = num1 - num2;
+                        break;
+                    case '*':
+                        correctAnswer = num1 * num2;
+                        break;
+                    case '/':
+                        correctAnswer = num1 / num2;
+                        break;
+                }
+                
+                currentQuestion = `${num1} ${operation} ${num2}`;
+                document.getElementById('mathQuestion').textContent = currentQuestion + ' = ?';
+                document.getElementById('mathInput').value = '';
+                document.getElementById('mathInput').focus();
+            }
+            
+            function startTimer() {
+                clearInterval(timerInterval);
+                timerInterval = setInterval(() => {
+                    timeLeft--;
+                    document.getElementById('mathTime').textContent = timeLeft;
+                    
+                    if (timeLeft <= 0) {
+                        clearInterval(timerInterval);
+                        gameActive = false;
+                        showAlert('info', "Time's up!", `Your final score: ${score}`, 'Try Again', 'Close', 
+                                    () => { initMathChallengeGame(); }, 
+                                    () => { closeGame(); });
+                    }
+                }, 1000);
+            }
+            
+            window.checkMathAnswer = function() {
+                if (!gameActive) return;
+                
+                const userAnswer = parseInt(document.getElementById('mathInput').value);
+                
+                if (userAnswer === correctAnswer) {
+                    score += level * 10;
+                    document.getElementById('mathScore').textContent = score;
+                    
+                    // Level up every 5 correct answers
+                    if (score > 0 && score % 50 === 0) {
+                        level++;
+                        document.getElementById('mathLevel').textContent = level;
+                        timeLeft += 10; // Bonus time for leveling up
+                        showAlert('success', 'Level Up!', `You're now at level ${level}!`, 'Continue', 'Close', 
+                                    () => { 
+                                        document.getElementById('mathInput').value = '';
+                                        generateQuestion(); 
+                                    }, 
+                                    () => { closeGame(); });
+                    } else {
+                        generateQuestion();
+                    }
+                } else {
+                    // Penalty for wrong answer
+                    timeLeft = Math.max(0, timeLeft - 5);
+                    document.getElementById('mathTime').textContent = timeLeft;
+                    
+                    // Shake animation for wrong answer
+                    const input = document.getElementById('mathInput');
+                    input.style.animation = 'shake 0.5s';
+                    setTimeout(() => {
+                        input.style.animation = '';
+                    }, 500);
+                }
+            };
+            
+            // Start the game
+            gameActive = true;
+            generateQuestion();
+            startTimer();
+        }
+
+        // Whack-a-Mole Game
+        function getWhackAMoleHTML() {
+            return `
+                <div class="game-header">
+                    <h2>Whack-a-Mole</h2>
+                    <p>Pukul tikus yang muncul dari lubang!</p>
+                </div>
+                <div class="game-info">
+                    <div>Score: <span id="whackScore">0</span></div>
+                    <div>Time: <span id="whackTime">30</span></div>
+                </div>
+                <canvas id="whackAMoleCanvas" width="500" height="400"></canvas>
+                <div class="game-controls">
+                    <div class="game-buttons">
+                        <button class="game-btn primary" onclick="startWhackAMoleGame()">Start Game</button>
+                        <button class="game-btn secondary" onclick="pauseWhackAMoleGame()">Pause</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function initWhackAMoleGame() {
+            const canvas = document.getElementById('whackAMoleCanvas');
+            const ctx = canvas.getContext('2d');
+            
+            // Game variables
+            let score = 0;
+            let timeLeft = 30;
+            let gameRunning = false;
+            let timerInterval = null;
+            let moleInterval = null;
+            
+            // Grid configuration
+            const rows = 3;
+            const cols = 3;
+            const holeWidth = 120;
+            const holeHeight = 80;
+            const spacing = 40;
+            const offsetX = (canvas.width - (cols * holeWidth + (cols - 1) * spacing)) / 2;
+            const offsetY = (canvas.height - (rows * holeHeight + (rows - 1) * spacing)) / 2;
+            
+            // Moles array
+            let moles = [];
+            
+            // Initialize moles
+            for (let row = 0; row < rows; row++) {
+                for (let col = 0; col < cols; col++) {
+                    moles.push({
+                        x: offsetX + col * (holeWidth + spacing),
+                        y: offsetY + row * (holeHeight + spacing),
+                        width: holeWidth,
+                        height: holeHeight,
+                        visible: false,
+                        timer: 0,
+                        maxTimer: 60 + Math.random() * 60, // 1-2 seconds at 60fps
+                        hit: false
+                    });
+                }
+            }
+            
+            document.getElementById('whackScore').textContent = score;
+            document.getElementById('whackTime').textContent = timeLeft;
+            
+            // Mouse/touch controls
+            canvas.addEventListener('click', (e) => {
+                if (!gameRunning) return;
+                
+                const rect = canvas.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                // Check if any mole was hit
+                for (let mole of moles) {
+                    if (
+                        mole.visible &&
+                        !mole.hit &&
+                        x >= mole.x &&
+                        x <= mole.x + mole.width &&
+                        y >= mole.y &&
+                        y <= mole.y + mole.height
+                    ) {
+                        mole.hit = true;
+                        score += 10;
+                        document.getElementById('whackScore').textContent = score;
+                        break;
+                    }
+                }
+            });
+            
+            canvas.addEventListener('touchstart', (e) => {
+                if (!gameRunning) return;
+                e.preventDefault();
+                
+                const rect = canvas.getBoundingClientRect();
+                const touch = e.touches[0];
+                const x = touch.clientX - rect.left;
+                const y = touch.clientY - rect.top;
+                
+                // Check if any mole was hit
+                for (let mole of moles) {
+                    if (
+                        mole.visible &&
+                        !mole.hit &&
+                        x >= mole.x &&
+                        x <= mole.x + mole.width &&
+                        y >= mole.y &&
+                        y <= mole.y + mole.height
+                    ) {
+                        mole.hit = true;
+                        score += 10;
+                        document.getElementById('whackScore').textContent = score;
+                        break;
+                    }
+                }
+            });
+            
+            window.startWhackAMoleGame = function() {
+                if (gameRunning) return;
+                gameRunning = true;
+                score = 0;
+                timeLeft = 30;
+                document.getElementById('whackScore').textContent = score;
+                document.getElementById('whackTime').textContent = timeLeft;
+                
+                // Reset all moles
+                for (let mole of moles) {
+                    mole.visible = false;
+                    mole.timer = 0;
+                    mole.hit = false;
+                }
+                
+                startTimer();
+                startMoleInterval();
+                gameLoop();
+            };
+            
+            window.pauseWhackAMoleGame = function() {
+                gameRunning = false;
+                clearInterval(timerInterval);
+                clearInterval(moleInterval);
+            };
+            
+            function startTimer() {
+                clearInterval(timerInterval);
+                timerInterval = setInterval(() => {
+                    timeLeft--;
+                    document.getElementById('whackTime').textContent = timeLeft;
+                    
+                    if (timeLeft <= 0) {
+                        clearInterval(timerInterval);
+                        clearInterval(moleInterval);
+                        gameRunning = false;
+                        showAlert('info', "Time's up!", `Your final score: ${score}`, 'Try Again', 'Close', 
+                                    () => { startWhackAMoleGame(); }, 
+                                    () => { closeGame(); });
+                    }
+                }, 1000);
+            }
+            
+            function startMoleInterval() {
+                clearInterval(moleInterval);
+                moleInterval = setInterval(() => {
+                    if (!gameRunning) return;
+                    
+                    // Try to show a new mole
+                    const hiddenMoles = moles.filter(m => !m.visible);
+                    if (hiddenMoles.length > 0) {
+                        const randomMole = hiddenMoles[Math.floor(Math.random() * hiddenMoles.length)];
+                        randomMole.visible = true;
+                        randomMole.timer = 0;
+                        randomMole.maxTimer = 60 + Math.random() * 60;
+                        randomMole.hit = false;
+                    }
+                }, 800); // New mole every 800ms
+            }
+            
+            function updateMoles() {
+                for (let mole of moles) {
+                    if (mole.visible) {
+                        mole.timer++;
+                        
+                        // Hide mole after timer expires or if hit
+                        if (mole.timer >= mole.maxTimer || mole.hit) {
+                            mole.visible = false;
+                        }
+                    }
+                }
+            }
+            
+            function drawBackground() {
+                // Draw grass
+                ctx.fillStyle = '#8B4513';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                
+                // Draw grass texture
+                ctx.fillStyle = '#228B22';
+                for (let i = 0; i < 200; i++) {
+                    const x = Math.random() * canvas.width;
+                    const y = Math.random() * canvas.height;
+                    const height = Math.random() * 10 + 5;
+                    ctx.fillRect(x, y, 2, height);
+                }
+            }
+            
+            function drawHoles() {
+                ctx.fillStyle = '#654321';
+                for (let mole of moles) {
+                    // Draw hole
+                    ctx.beginPath();
+                    ctx.ellipse(
+                        mole.x + mole.width / 2,
+                        mole.y + mole.height / 2,
+                        mole.width / 2,
+                        mole.height / 3,
+                        0, 0, Math.PI * 2
+                    );
+                    ctx.fill();
+                }
+            }
+            
+            function drawMoles() {
+                for (let mole of moles) {
+                    if (mole.visible) {
+                        // Draw mole
+                        ctx.fillStyle = mole.hit ? '#FF0000' : '#8B4513';
+                        
+                        // Body
+                        ctx.beginPath();
+                        ctx.ellipse(
+                            mole.x + mole.width / 2,
+                            mole.y + mole.height / 2,
+                            mole.width / 3,
+                            mole.height / 3,
+                            0, 0, Math.PI * 2
+                        );
+                        ctx.fill();
+                        
+                        // Eyes
+                        if (!mole.hit) {
+                            ctx.fillStyle = 'white';
+                            ctx.beginPath();
+                            ctx.arc(
+                                mole.x + mole.width / 2 - 10,
+                                mole.y + mole.height / 2 - 5,
+                                5, 0, Math.PI * 2
+                            );
+                            ctx.arc(
+                                mole.x + mole.width / 2 + 10,
+                                mole.y + mole.height / 2 - 5,
+                                5, 0, Math.PI * 2
+                            );
+                            ctx.fill();
+                            
+                            // Pupils
+                            ctx.fillStyle = 'black';
+                            ctx.beginPath();
+                            ctx.arc(
+                                mole.x + mole.width / 2 - 10,
+                                mole.y + mole.height / 2 - 5,
+                                2, 0, Math.PI * 2
+                            );
+                            ctx.arc(
+                                mole.x + mole.width / 2 + 10,
+                                mole.y + mole.height / 2 - 5,
+                                2, 0, Math.PI * 2
+                            );
+                            ctx.fill();
+                        }
+                        
+                        // Nose
+                        ctx.fillStyle = 'black';
+                        ctx.beginPath();
+                        ctx.arc(
+                            mole.x + mole.width / 2,
+                            mole.y + mole.height / 2 + 5,
+                            3, 0, Math.PI * 2
+                        );
+                        ctx.fill();
+                    }
+                }
+            }
+            
+            function gameLoop() {
+                if (!gameRunning) return;
+                
+                // Update game state
+                updateMoles();
+                
+                // Draw everything
+                drawBackground();
+                drawHoles();
+                drawMoles();
+                
+                requestAnimationFrame(gameLoop);
+            }
+        }
+
+        // Simon Says Game
+        function getSimonSaysHTML() {
+            return `
+                <div class="game-header">
+                    <h2>Simon Says</h2>
+                    <p>Ikuti pola warna yang ditampilkan!</p>
+                </div>
+                <div class="game-info">
+                    <div>Level: <span id="simonLevel">1</span></div>
+                    <div>Score: <span id="simonScore">0</span></div>
+                </div>
+                <div class="simon-container">
+                    <div class="simon-board" id="simonBoard">
+                        <div class="simon-button red" data-color="red"></div>
+                        <div class="simon-button green" data-color="green"></div>
+                        <div class="simon-button blue" data-color="blue"></div>
+                        <div class="simon-button yellow" data-color="yellow"></div>
+                    </div>
+                    <div class="game-buttons">
+                        <button class="game-btn primary" onclick="startSimonSaysGame()">Start Game</button>
+                        <button class="game-btn secondary" onclick="closeGame()">Close</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function initSimonSaysGame() {
+            const buttons = document.querySelectorAll('.simon-button');
+            let sequence = [];
+            let playerSequence = [];
+            let level = 1;
+            let score = 0;
+            let isPlaying = false;
+            let isShowingSequence = false;
+            
+            document.getElementById('simonLevel').textContent = level;
+            document.getElementById('simonScore').textContent = score;
+            
+            // Add click event listeners to buttons
+            buttons.forEach(button => {
+                button.addEventListener('click', () => {
+                    if (!isPlaying || isShowingSequence) return;
+                    
+                    const color = button.getAttribute('data-color');
+                    playerSequence.push(color);
+                    
+                    // Activate button animation
+                    button.classList.add('active');
+                    setTimeout(() => {
+                        button.classList.remove('active');
+                    }, 300);
+                    
+                    // Check if player's choice is correct
+                    const currentIndex = playerSequence.length - 1;
+                    if (playerSequence[currentIndex] !== sequence[currentIndex]) {
+                        // Wrong choice
+                        gameOver();
+                        return;
+                    }
+                    
+                    // Check if player completed the sequence
+                    if (playerSequence.length === sequence.length) {
+                        // Correct sequence completed
+                        score += level * 10;
+                        document.getElementById('simonScore').textContent = score;
+                        
+                        // Level up
+                        level++;
+                        document.getElementById('simonLevel').textContent = level;
+                        
+                        // Start next round after a short delay
+                        setTimeout(() => {
+                            nextRound();
+                        }, 1000);
+                    }
+                });
+            });
+            
+            function nextRound() {
+                playerSequence = [];
+                isShowingSequence = true;
+                
+                // Add a new color to the sequence
+                const colors = ['red', 'green', 'blue', 'yellow'];
+                const randomColor = colors[Math.floor(Math.random() * colors.length)];
+                sequence.push(randomColor);
+                
+                // Show the sequence
+                showSequence();
+            }
+            
+            function showSequence() {
+                let index = 0;
+                
+                const interval = setInterval(() => {
+                    if (index >= sequence.length) {
+                        clearInterval(interval);
+                        isShowingSequence = false;
+                        return;
+                    }
+                    
+                    // Activate the button
+                    const color = sequence[index];
+                    const button = document.querySelector(`.simon-button.${color}`);
+                    button.classList.add('active');
+                    
+                    // Play sound (if available)
+                    playSound(color);
+                    
+                    // Deactivate after a short delay
+                    setTimeout(() => {
+                        button.classList.remove('active');
+                    }, 500);
+                    
+                    index++;
+                }, 800);
+            }
+            
+            function playSound(color) {
+                // Create a simple beep sound using Web Audio API
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                // Set frequency based on color
+                switch (color) {
+                    case 'red':
+                        oscillator.frequency.value = 261.63; // C
+                        break;
+                    case 'green':
+                        oscillator.frequency.value = 329.63; // E
+                        break;
+                    case 'blue':
+                        oscillator.frequency.value = 392.00; // G
+                        break;
+                    case 'yellow':
+                        oscillator.frequency.value = 523.25; // C (higher octave)
+                        break;
+                }
+                
+                oscillator.start();
+                oscillator.stop(audioContext.currentTime + 0.3);
+            }
+            
+            function gameOver() {
+                isPlaying = false;
+                showAlert('error', 'Game Over', `Your score: ${score}`, 'Try Again', 'Close', 
+                            () => { startSimonSaysGame(); }, 
+                            () => { closeGame(); });
+                
+                // Flash all buttons
+                buttons.forEach(button => {
+                    button.classList.add('active');
+                    setTimeout(() => {
+                        button.classList.remove('active');
+                    }, 500);
+                });
+            }
+            
+            window.startSimonSaysGame = function() {
+                if (isPlaying) return;
+                
+                // Reset game state
+                sequence = [];
+                playerSequence = [];
+                level = 1;
+                score = 0;
+                isPlaying = true;
+                
+                document.getElementById('simonLevel').textContent = level;
+                document.getElementById('simonScore').textContent = score;
+                
+                // Start the first round
+                nextRound();
+            };
+        }
+
+        // Connect Four Game
+        function getConnectFourHTML() {
+            return `
+                <div class="game-header">
+                    <h2>Connect Four</h2>
+                    <p>Susun empat bidak dalam satu baris untuk menang!</p>
+                </div>
+                <div class="game-info">
+                    <div>Player <span id="connectCurrentPlayer">1</span>'s turn</div>
+                </div>
+                <div class="connect-four-container">
+                    <div class="connect-four-board" id="connectFourBoard"></div>
+                    <div class="game-buttons">
+                        <button class="game-btn primary" onclick="initConnectFourGame()">New Game</button>
+                        <button class="game-btn secondary" onclick="closeGame()">Close</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function initConnectFourGame() {
+            const board = document.getElementById('connectFourBoard');
+            let rows = 6;
+            let cols = 7;
+            let gameBoard = Array(rows).fill().map(() => Array(cols).fill(0));
+            let currentPlayer = 1;
+            let gameActive = true;
+            
+            document.getElementById('connectCurrentPlayer').textContent = currentPlayer;
+            
+            // Create the game board
+            board.innerHTML = '';
+            for (let row = 0; row < rows; row++) {
+                for (let col = 0; col < cols; col++) {
+                    const cell = document.createElement('div');
+                    cell.className = 'connect-four-cell';
+                    cell.dataset.row = row;
+                    cell.dataset.col = col;
+                    cell.addEventListener('click', handleCellClick);
+                    board.appendChild(cell);
+                }
+            }
+            
+            function handleCellClick(e) {
+                if (!gameActive) return;
+                
+                const col = parseInt(e.target.dataset.col);
+                
+                // Find the lowest empty row in this column
+                let row = -1;
+                for (let r = rows - 1; r >= 0; r--) {
+                    if (gameBoard[r][col] === 0) {
+                        row = r;
+                        break;
+                    }
+                }
+                
+                // If column is full, do nothing
+                if (row === -1) return;
+                
+                // Update game board
+                gameBoard[row][col] = currentPlayer;
+                
+                // Update UI
+                const cell = document.querySelector(`.connect-four-cell[data-row="${row}"][data-col="${col}"]`);
+                cell.classList.add(`player${currentPlayer}`);
+                
+                // Check for winner
+                if (checkWinner(row, col)) {
+                    gameActive = false;
+                    showAlert('win', 'Game Over!', `Player ${currentPlayer} wins!`, 'Play Again', 'Close', 
+                                () => { initConnectFourGame(); }, 
+                                () => { closeGame(); });
+                    return;
+                }
+                
+                // Check for draw
+                if (gameBoard.every(row => row.every(cell => cell !== 0))) {
+                    gameActive = false;
+                    showAlert('info', "It's a draw!", "The game ended in a draw!", 'Play Again', 'Close', 
+                                () => { initConnectFourGame(); }, 
+                                () => { closeGame(); });
+                    return;
+                }
+                
+                // Switch player
+                currentPlayer = currentPlayer === 1 ? 2 : 1;
+                document.getElementById('connectCurrentPlayer').textContent = currentPlayer;
+            }
+            
+            function checkWinner(row, col) {
+                const player = gameBoard[row][col];
+                
+                // Check horizontal
+                let count = 1;
+                
+                // Check left
+                for (let c = col - 1; c >= 0 && gameBoard[row][c] === player; c--) {
+                    count++;
+                }
+                
+                // Check right
+                for (let c = col + 1; c < cols && gameBoard[row][c] === player; c++) {
+                    count++;
+                }
+                
+                if (count >= 4) {
+                    highlightWinningCells(row, col, 'horizontal');
+                    return true;
+                }
+                
+                // Check vertical
+                count = 1;
+                
+                // Check up
+                for (let r = row - 1; r >= 0 && gameBoard[r][col] === player; r--) {
+                    count++;
+                }
+                
+                // Check down
+                for (let r = row + 1; r < rows && gameBoard[r][col] === player; r++) {
+                    count++;
+                }
+                
+                if (count >= 4) {
+                    highlightWinningCells(row, col, 'vertical');
+                    return true;
+                }
+                
+                // Check diagonal (top-left to bottom-right)
+                count = 1;
+                
+                // Check up-left
+                for (let r = row - 1, c = col - 1; r >= 0 && c >= 0 && gameBoard[r][c] === player; r--, c--) {
+                    count++;
+                }
+                
+                // Check down-right
+                for (let r = row + 1, c = col + 1; r < rows && c < cols && gameBoard[r][c] === player; r++, c++) {
+                    count++;
+                }
+                
+                if (count >= 4) {
+                    highlightWinningCells(row, col, 'diagonal1');
+                    return true;
+                }
+                
+                // Check diagonal (top-right to bottom-left)
+                count = 1;
+                
+                // Check up-right
+                for (let r = row - 1, c = col + 1; r >= 0 && c < cols && gameBoard[r][c] === player; r--, c++) {
+                    count++;
+                }
+                
+                // Check down-left
+                for (let r = row + 1, c = col - 1; r < rows && c >= 0 && gameBoard[r][c] === player; r++, c--) {
+                    count++;
+                }
+                
+                if (count >= 4) {
+                    highlightWinningCells(row, col, 'diagonal2');
+                    return true;
+                }
+                
+                return false;
+            }
+            
+            function highlightWinningCells(row, col, direction) {
+                const player = gameBoard[row][col];
+                const cells = [];
+                
+                cells.push({row, col});
+                
+                if (direction === 'horizontal') {
+                    // Check left
+                    for (let c = col - 1; c >= 0 && gameBoard[row][c] === player; c--) {
+                        cells.push({row, col: c});
+                    }
+                    
+                    // Check right
+                    for (let c = col + 1; c < cols && gameBoard[row][c] === player; c++) {
+                        cells.push({row, col: c});
+                    }
+                } else if (direction === 'vertical') {
+                    // Check up
+                    for (let r = row - 1; r >= 0 && gameBoard[r][col] === player; r--) {
+                        cells.push({row: r, col});
+                    }
+                    
+                    // Check down
+                    for (let r = row + 1; r < rows && gameBoard[r][col] === player; r++) {
+                        cells.push({row: r, col});
+                    }
+                } else if (direction === 'diagonal1') {
+                    // Check up-left
+                    for (let r = row - 1, c = col - 1; r >= 0 && c >= 0 && gameBoard[r][c] === player; r--, c--) {
+                        cells.push({row: r, col: c});
+                    }
+                    
+                    // Check down-right
+                    for (let r = row + 1, c = col + 1; r < rows && c < cols && gameBoard[r][c] === player; r++, c++) {
+                        cells.push({row: r, col: c});
+                    }
+                } else if (direction === 'diagonal2') {
+                    // Check up-right
+                    for (let r = row - 1, c = col + 1; r >= 0 && c < cols && gameBoard[r][c] === player; r--, c++) {
+                        cells.push({row: r, col: c});
+                    }
+                    
+                    // Check down-left
+                    for (let r = row + 1, c = col - 1; r < rows && c >= 0 && gameBoard[r][c] === player; r++, c--) {
+                        cells.push({row: r, col: c});
+                    }
+                }
+                
+                // Highlight the winning cells
+                cells.forEach(({row, col}) => {
+                    const cell = document.querySelector(`.connect-four-cell[data-row="${row}"][data-col="${col}"]`);
+                    cell.classList.add('winner');
+                });
+            }
+        }
+
+        // Word Search Game
+        function getWordSearchHTML() {
+            return `
+                <div class="game-header">
+                    <h2>Word Search</h2>
+                    <p>Cari kata-kata tersembunyi dalam grid huruf!</p>
+                </div>
+                <div class="game-info">
+                    <div>Words Found: <span id="wordsFound">0</span>/<span id="totalWords">0</span></div>
+                </div>
+                <div class="word-search-container">
+                    <div class="word-search-grid" id="wordSearchGrid"></div>
+                    <div class="word-search-words" id="wordSearchWords"></div>
+                    <div class="game-buttons">
+                        <button class="game-btn primary" onclick="initWordSearchGame()">New Game</button>
+                        <button class="game-btn secondary" onclick="closeGame()">Close</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function initWordSearchGame() {
+            const grid = document.getElementById('wordSearchGrid');
+            const wordsContainer = document.getElementById('wordSearchWords');
+            
+            const gridSize = 10;
+            const words = [
+                'JAVASCRIPT',
+                'HTML',
+                'CSS',
+                'REACT',
+                'NODE',
+                'PYTHON',
+                'DATABASE',
+                'ALGORITHM'
+            ];
+            
+            let gridArray = [];
+            let foundWords = [];
+            let selectedCells = [];
+            let isSelecting = false;
+            
+            document.getElementById('totalWords').textContent = words.length;
+            document.getElementById('wordsFound').textContent = foundWords.length;
+            
+            // Initialize grid
+            function initGrid() {
+                gridArray = Array(gridSize).fill().map(() => Array(gridSize).fill(''));
+                
+                // Place words in the grid
+                words.forEach(word => {
+                    placeWord(word);
+                });
+                
+                // Fill empty cells with random letters
+                for (let row = 0; row < gridSize; row++) {
+                    for (let col = 0; col < gridSize; col++) {
+                        if (gridArray[row][col] === '') {
+                            gridArray[row][col] = String.fromCharCode(65 + Math.floor(Math.random() * 26));
+                        }
+                    }
+                }
+                
+                // Display the grid
+                displayGrid();
+                
+                // Display the words to find
+                displayWords();
+            }
+            
+            function placeWord(word) {
+                const directions = [
+                    [0, 1],   // horizontal
+                    [1, 0],   // vertical
+                    [1, 1],   // diagonal down-right
+                    [-1, 1],  // diagonal up-right
+                    [0, -1],  // horizontal backward
+                    [-1, 0],  // vertical backward
+                    [-1, -1], // diagonal up-left
+                    [1, -1]   // diagonal down-left
+                ];
+                
+                let placed = false;
+                let attempts = 0;
+                
+                while (!placed && attempts < 100) {
+                    const direction = directions[Math.floor(Math.random() * directions.length)];
+                    const startRow = Math.floor(Math.random() * gridSize);
+                    const startCol = Math.floor(Math.random() * gridSize);
+                    
+                    if (canPlaceWord(word, startRow, startCol, direction)) {
+                        for (let i = 0; i < word.length; i++) {
+                            const row = startRow + i * direction[0];
+                            const col = startCol + i * direction[1];
+                            gridArray[row][col] = word[i];
+                        }
+                        placed = true;
+                    }
+                    
+                    attempts++;
+                }
+            }
+            
+            function canPlaceWord(word, startRow, startCol, direction) {
+                for (let i = 0; i < word.length; i++) {
+                    const row = startRow + i * direction[0];
+                    const col = startCol + i * direction[1];
+                    
+                    // Check if out of bounds
+                    if (row < 0 || row >= gridSize || col < 0 || col >= gridSize) {
+                        return false;
+                    }
+                    
+                    // Check if cell is already occupied by a different letter
+                    if (gridArray[row][col] !== '' && gridArray[row][col] !== word[i]) {
+                        return false;
+                    }
+                }
+                
+                return true;
+            }
+            
+            function displayGrid() {
+                grid.innerHTML = '';
+                
+                for (let row = 0; row < gridSize; row++) {
+                    for (let col = 0; col < gridSize; col++) {
+                        const cell = document.createElement('div');
+                        cell.className = 'word-search-cell';
+                        cell.textContent = gridArray[row][col];
+                        cell.dataset.row = row;
+                        cell.dataset.col = col;
+                        
+                        // Add mouse events
+                        cell.addEventListener('mousedown', startSelection);
+                        cell.addEventListener('mouseover', continueSelection);
+                        cell.addEventListener('mouseup', endSelection);
+                        
+                        // Add touch events
+                        cell.addEventListener('touchstart', (e) => {
+                            e.preventDefault();
+                            startSelection(e);
+                        });
+                        cell.addEventListener('touchmove', (e) => {
+                            e.preventDefault();
+                            const touch = e.touches[0];
+                            const element = document.elementFromPoint(touch.clientX, touch.clientY);
+                            if (element && element.classList.contains('word-search-cell')) {
+                                continueSelection({target: element});
+                            }
+                        });
+                        cell.addEventListener('touchend', (e) => {
+                            e.preventDefault();
+                            endSelection(e);
+                        });
+                        
+                        grid.appendChild(cell);
+                    }
+                }
+            }
+            
+            function displayWords() {
+                wordsContainer.innerHTML = '';
+                
+                words.forEach(word => {
+                    const wordElement = document.createElement('div');
+                    wordElement.className = 'word-search-word';
+                    wordElement.textContent = word;
+                    
+                    if (foundWords.includes(word)) {
+                        wordElement.classList.add('found');
+                    }
+                    
+                    wordsContainer.appendChild(wordElement);
+                });
+            }
+            
+            function startSelection(e) {
+                isSelecting = true;
+                selectedCells = [];
+                const cell = e.target;
+                selectedCells.push(cell);
+                cell.classList.add('selected');
+            }
+            
+            function continueSelection(e) {
+                if (!isSelecting) return;
+                
+                const cell = e.target;
+                
+                // Check if cell is already selected
+                if (selectedCells.includes(cell)) return;
+                
+                // Check if cell is adjacent to the last selected cell
+                const lastCell = selectedCells[selectedCells.length - 1];
+                const lastRow = parseInt(lastCell.dataset.row);
+                const lastCol = parseInt(lastCell.dataset.col);
+                const cellRow = parseInt(cell.dataset.row);
+                const cellCol = parseInt(cell.dataset.col);
+                
+                // Allow selection only if adjacent (including diagonals)
+                if (Math.abs(lastRow - cellRow) <= 1 && Math.abs(lastCol - cellCol) <= 1) {
+                    selectedCells.push(cell);
+                    cell.classList.add('selected');
+                }
+            }
+            
+            function endSelection(e) {
+                if (!isSelecting) return;
+                
+                isSelecting = false;
+                
+                // Get the selected word
+                const selectedWord = selectedCells.map(cell => cell.textContent).join('');
+                
+                // Check if it's a valid word
+                if (words.includes(selectedWord) && !foundWords.includes(selectedWord)) {
+                    foundWords.push(selectedWord);
+                    document.getElementById('wordsFound').textContent = foundWords.length;
+                    
+                    // Mark cells as found
+                    selectedCells.forEach(cell => {
+                        cell.classList.remove('selected');
+                        cell.classList.add('found');
+                    });
+                    
+                    // Update word display
+                    displayWords();
+                    
+                    // Check if all words are found
+                    if (foundWords.length === words.length) {
+                        setTimeout(() => {
+                            showAlert('win', 'Congratulations!', 'You found all the words!', 'Play Again', 'Close', 
+                                        () => { initWordSearchGame(); }, 
+                                        () => { closeGame(); });
+                        }, 300);
+                    }
+                } else {
+                    // Clear selection
+                    selectedCells.forEach(cell => {
+                        cell.classList.remove('selected');
+                    });
+                }
+                
+                selectedCells = [];
+            }
+            
+            // Initialize the game
+            initGrid();
+        }
+
+        // Typing Speed Test Game
+        function getTypingSpeedHTML() {
+            return `
+                <div class="game-header">
+                    <h2>Typing Speed Test</h2>
+                    <p>Uji kecepatan mengetik Anda!</p>
+                </div>
+                <div class="game-info">
+                    <div>WPM: <span id="typingWPM">0</span></div>
+                    <div>Accuracy: <span id="typingAccuracy">100%</span></div>
+                    <div>Time: <span id="typingTime">60</span></div>
+                </div>
+                <div class="typing-test-container">
+                    <div class="typing-text" id="typingText"></div>
+                    <input type="text" class="typing-input" id="typingInput" placeholder="Start typing here..." disabled>
+                    <div class="game-buttons">
+                        <button class="game-btn primary" onclick="startTypingSpeedTest()">Start Test</button>
+                        <button class="game-btn secondary" onclick="closeGame()">Close</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function initTypingSpeedGame() {
+            const textElement = document.getElementById('typingText');
+            const inputElement = document.getElementById('typingInput');
+            const wpmElement = document.getElementById('typingWPM');
+            const accuracyElement = document.getElementById('typingAccuracy');
+            const timeElement = document.getElementById('typingTime');
+            
+            const sampleTexts = [
+                "The quick brown fox jumps over the lazy dog. This pangram sentence contains every letter of the alphabet at least once.",
+                "Technology has revolutionized the way we communicate, work, and live. From smartphones to artificial intelligence, innovation continues to shape our future.",
+                "Learning to type quickly and accurately is a valuable skill in today's digital world. Practice makes perfect, so keep typing to improve your speed.",
+                "JavaScript is a versatile programming language that powers interactive web pages and modern applications. It's essential for front-end and back-end development.",
+                "The ocean covers more than 70% of Earth's surface and contains 97% of Earth's water. Despite its importance, we've explored less than 5% of it."
+            ];
+            
+            let sampleText = sampleTexts[Math.floor(Math.random() * sampleTexts.length)];
+            let startTime = null;
+            let timeLeft = 60;
+            let timerInterval = null;
+            let correctChars = 0;
+            let totalChars = 0;
+            
+            // Display the sample text
+            function displayText() {
+                textElement.innerHTML = '';
+                
+                for (let i = 0; i < sampleText.length; i++) {
+                    const span = document.createElement('span');
+                    span.textContent = sampleText[i];
+                    span.dataset.index = i;
+                    textElement.appendChild(span);
+                }
+            }
+            
+            // Calculate WPM
+            function calculateWPM() {
+                if (!startTime) return 0;
+                
+                const timeElapsed = (Date.now() - startTime) / 1000 / 60; // in minutes
+                const wordsTyped = correctChars / 5; // standard word length is 5 characters
+                return Math.round(wordsTyped / timeElapsed);
+            }
+            
+            // Calculate accuracy
+            function calculateAccuracy() {
+                if (totalChars === 0) return 100;
+                return Math.round((correctChars / totalChars) * 100);
+            }
+            
+            // Update the display based on user input
+            function updateDisplay() {
+                const inputValue = inputElement.value;
+                const inputLength = inputValue.length;
+                
+                // Reset all spans
+                const spans = textElement.querySelectorAll('span');
+                spans.forEach(span => {
+                    span.classList.remove('correct', 'incorrect', 'current');
+                });
+                
+                // Mark correct characters
+                for (let i = 0; i < Math.min(inputLength, sampleText.length); i++) {
+                    if (inputValue[i] === sampleText[i]) {
+                        spans[i].classList.add('correct');
+                    } else {
+                        spans[i].classList.add('incorrect');
+                    }
+                }
+                
+                // Mark current position
+                if (inputLength < sampleText.length) {
+                    spans[inputLength].classList.add('current');
+                }
+                
+                // Update stats
+                correctChars = 0;
+                totalChars = inputLength;
+                
+                for (let i = 0; i < inputLength; i++) {
+                    if (inputValue[i] === sampleText[i]) {
+                        correctChars++;
+                    }
+                }
+                
+                wpmElement.textContent = calculateWPM();
+                accuracyElement.textContent = calculateAccuracy() + '%';
+            }
+            
+            // Start the timer
+            function startTimer() {
+                clearInterval(timerInterval);
+                timerInterval = setInterval(() => {
+                    timeLeft--;
+                    timeElement.textContent = timeLeft;
+                    
+                    if (timeLeft <= 0) {
+                        clearInterval(timerInterval);
+                        endTest();
+                    }
+                }, 1000);
+            }
+            
+            // End the test
+            function endTest() {
+                inputElement.disabled = true;
+                
+                const wpm = calculateWPM();
+                const accuracy = calculateAccuracy();
+                
+                showAlert('info', 'Test Completed!', `WPM: ${wpm}\nAccuracy: ${accuracy}%`, 'Try Again', 'Close', 
+                            () => { startTypingSpeedTest(); }, 
+                            () => { closeGame(); });
+            }
+            
+            // Input event listener
+            inputElement.addEventListener('input', () => {
+                if (!startTime) {
+                    startTime = Date.now();
+                    startTimer();
+                }
+                
+                updateDisplay();
+                
+                // Check if user has finished typing
+                if (inputElement.value === sampleText) {
+                    clearInterval(timerInterval);
+                    endTest();
+                }
+            });
+            
+            window.startTypingSpeedTest = function() {
+                // Reset everything
+                sampleText = sampleTexts[Math.floor(Math.random() * sampleTexts.length)];
+                startTime = null;
+                timeLeft = 60;
+                correctChars = 0;
+                totalChars = 0;
+                
+                wpmElement.textContent = '0';
+                accuracyElement.textContent = '100%';
+                timeElement.textContent = timeLeft;
+                
+                inputElement.value = '';
+                inputElement.disabled = false;
+                inputElement.focus();
+                
+                displayText();
+                startTimer();
+            };
+        }
+
         // Close modal when clicking outside
         document.getElementById('gameModal').addEventListener('click', function(e) {
             if (e.target === this) {
                 closeGame();
+            }
+        });
+
+        // Close alert modal when clicking outside
+        document.getElementById('alertModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                const modal = document.getElementById('alertModal');
+                modal.classList.remove('active');
             }
         });
     </script>
