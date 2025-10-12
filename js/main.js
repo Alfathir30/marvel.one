@@ -374,3 +374,39 @@ document.addEventListener('click', function(e) {
         }
     }
 });
+
+// Di dalam fungsi login()
+function login() {
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+    const errorMsg = document.getElementById('error-message');
+    
+    // Reset error message
+    errorMsg.style.display = 'none';
+    
+    // Basic validation
+    if (!username || !password) {
+        errorMsg.style.display = 'block';
+        return;
+    }
+    
+    // Show loading state
+    const loginBtn = document.getElementById('loginBtn');
+    const originalText = loginBtn.innerHTML;
+    loginBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+    
+    // Simulate API call
+    setTimeout(() => {
+        // Reset button after simulated API call
+        loginBtn.innerHTML = originalText;
+        
+        // Simulate successful login
+        setTimeout(() => {
+            showAlert('success', 'Login Berhasil!', 'Selamat datang Anda berhasil login!', 'Go to Dashboard', 'Close', 
+                            () => { 
+                window.location.href = 'dashboard.html'; 
+            }, 
+                            () => { closeAuthModal(); });
+        }, 1500);
+    }, 1500);
+}
