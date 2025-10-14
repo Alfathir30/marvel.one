@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tugas 2 - List Biodata Teman | MARVEL.ONE</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style_tasks.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+    <div class="background-container">
+        <div class="bokeh"></div>
+    </div>
+    
+    <nav class="task-nav">
+        <div class="nav-container">
+            <div class="logo">
+                <span>MARVEL.ONE</span>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="../index.html" class="nav-link">Beranda</a>
+                </li>
+                <li class="nav-item">
+                    <a href="tugas_all.html" class="nav-link">Semua Tugas</a>
+                </li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <section class="task-section">
+            <div class="container">
+                <div class="task-header" data-aos="fade-down">
+                    <h1>Data Siswa XI  TKJ 2</h1>
+                    <p>SMK Vinama 2 - Bekasi</p>
+                </div>
+                
+                <div class="search-container" data-aos="fade-up">
+                    <div class="search-box glass">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="searchInput" placeholder="Cari Nama Siswa...">
+                    </div>
+                </div>
+                
+                <div class="biodata-list" id="biodataList">
+                    <!-- Data akan dimuat dengan JavaScript -->
+                </div>
+                
+                <div class="no-results" id="noResults" style="display: none;">
+                    <div class="glass">
+                        <i class="fas fa-search"></i>
+                        <h3>Tidak ada hasil</h3>
+                        <p>Coba kata kunci pencarian lain</p>
+                    </div>
+                </div>
+                
+                <div class="task-navigation">
+                    <a href="tugas1_biodata.html" class="btn secondary">
+                        <i class="fas fa-arrow-left"></i> Tugas Sebelumnya
+                    </a>
+                    <a href="tugas_all.html" class="btn primary">
+                        Kembali ke Semua Tugas <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal Detail Biodata -->
+    <div class="biodata-modal" id="biodataModal">
+        <div class="modal-content glass">
+            <button class="close-modal" id="closeModal">
+                <i class="fas fa-times"></i>
+            </button>
+            
+            <div class="modal-header">
+                <div class="modal-profile-image">
+                    <img id="modalPhoto" src="" alt="Profile">
+                </div>
+                <h2 id="modalName"></h2>
+                <p class="modal-tagline">Teman Kelas</p>
+            </div>
+            
+            <div class="modal-body">
+                <div class="biodata-section">
+                    <h3><i class="fas fa-user"></i> Informasi Pribadi</h3>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <span class="info-label">Nama Lengkap</span>
+                            <span class="info-value" id="modalFullName"></span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Tanggal Lahir</span>
+                            <span class="info-value" id="modalBirthDate"></span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Alamat</span>
+                            <span class="info-value" id="modalAddress"></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="biodata-section">
+                    <h3><i class="fas fa-heart"></i> Hobi</h3>
+                    <div class="hobby-tags" id="modalHobbies">
+                        <!-- Hobi akan dimuat dengan JavaScript -->
+                    </div>
+                </div>
+                
+                <div class="biodata-section">
+                    <h3><i class="fas fa-quote-left"></i> Quotes</h3>
+                    <div class="quote-container">
+                        <p id="modalQuote"></p>
+                    </div>
+                </div>
+                
+                <div class="biodata-section">
+                    <h3><i class="fas fa-share-alt"></i> Kontak</h3>
+                    <div class="social-links">
+                        <a href="#" id="modalEmail" class="social-link">
+                            <i class="fas fa-envelope"></i> Email
+                        </a>
+                        <a href="#" id="modalSocial" class="social-link">
+                            <i class="fas fa-user-circle"></i> Social Media
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+        // Data biodata teman yang lengkap
+        const friendsData = [
+            {
+                id: 1,
+                name: "Alif Marvel A.",
+                photo: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png",
+                email: "Marvel@Contoh.com",
+                social: "https://instagram.com/Al.marvel_",
+                birthDate: "30 November 2008",
+                address: "Jl. Merdeka No. 123, Jakarta",
+                hobbies: ["Reading", "Coding", "Music"],
+                quote: "Kode adalah puisi untuk mesin, dan saya adalah penyairnya."
+            },
+            {
+                id: 2,
+                name: "Ardy Ramadan",
+                photo: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png",
+                email: "Ardy@Contoh.com",
+                social: "https://instagram.com/siti",
+                birthDate: "22 Maret 2005",
+                address: "Jl. Sudirman No. 45, Jakarta",
+                hobbies: ["Reading", "Music", "Traveling"],
+                quote: "Buku adalah jendela dunia, dan traveling adalah pintunya."
+            },
+            {
+                id: 3,
+                name: "Risayad Ibrahim",
+                photo: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png",
+                email: "Icaad@Contoh.com",
+                social: "https://instagram.com/budi",
+                birthDate: "8 Juni 2005",
+                address: "Jl. Gatot Subroto No. 67, Jakarta",
+                hobbies: ["Sports", "Photography", "Gaming"],
+                quote: "Setiap klik kamera adalah kenangan yang abadi."
+            },
+            {
+                id: 4,
+                name: "Rofi Rijal",
+                photo: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png",
+                email: "Opik@Contoh.com",
+                social: "https://instagram.com/dewi",
+                birthDate: "17 September 2005",
+                address: "Jl. Thamrin No. 89, Jakarta",
+                hobbies: ["Art", "Design", "Cooking"],
+                quote: "Kreativitas adalah intelligence yang bersenang-senang."
+            }
+        ];
+
+        // Fungsi untuk menampilkan biodata
+        function displayBiodata(data) {
+            const biodataList = document.getElementById('biodataList');
+            biodataList.innerHTML = '';
+            
+            if (data.length === 0) {
+                document.getElementById('noResults').style.display = 'flex';
+                return;
+            }
+            
+            document.getElementById('noResults').style.display = 'none';
+            
+            data.forEach((friend, index) => {
+                const biodataCard = document.createElement('div');
+                biodataCard.className = 'biodata-card glass clickable';
+                biodataCard.setAttribute('data-aos', 'fade-up');
+                biodataCard.setAttribute('data-aos-delay', index * 100);
+                biodataCard.setAttribute('data-id', friend.id);
+                
+                biodataCard.innerHTML = `
+                    <div class="biodata-content">
+                        <div class="profile-image">
+                            <img src="${friend.photo}" alt="${friend.name}">
+                        </div>
+                        <div class="biodata-info">
+                            <h3>${friend.name}</h3>
+                            <p><i class="fas fa-envelope"></i> ${friend.email}</p>
+                            <p><i class="fas fa-heart"></i> ${friend.hobbies.join(', ')}</p>
+                            <div class="view-detail">
+                                <span>Lihat Detail <i class="fas fa-arrow-right"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                // Tambahkan event listener untuk klik
+                biodataCard.addEventListener('click', () => showBiodataDetail(friend));
+                
+                biodataList.appendChild(biodataCard);
+            });
+            
+            // Refresh AOS
+            AOS.refresh();
+        }
+
+        // Fungsi untuk menampilkan detail biodata
+        function showBiodataDetail(friend) {
+            // Isi modal dengan data teman
+            document.getElementById('modalPhoto').src = friend.photo;
+            document.getElementById('modalName').textContent = friend.name;
+            document.getElementById('modalFullName').textContent = friend.name;
+            document.getElementById('modalBirthDate').textContent = friend.birthDate;
+            document.getElementById('modalAddress').textContent = friend.address;
+            document.getElementById('modalQuote').textContent = friend.quote;
+            
+            // Isi hobi
+            const hobbiesContainer = document.getElementById('modalHobbies');
+            hobbiesContainer.innerHTML = '';
+            friend.hobbies.forEach(hobby => {
+                const hobbyTag = document.createElement('span');
+                hobbyTag.className = 'hobby-tag';
+                hobbyTag.textContent = hobby;
+                hobbiesContainer.appendChild(hobbyTag);
+            });
+            
+            // Isi kontak
+            document.getElementById('modalEmail').href = `mailto:${friend.email}`;
+            document.getElementById('modalSocial').href = friend.social;
+            
+            // Tampilkan modal
+            document.getElementById('biodataModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Fungsi pencarian
+        document.getElementById('searchInput').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const filteredData = friendsData.filter(friend => 
+                friend.name.toLowerCase().includes(searchTerm)
+            );
+            displayBiodata(filteredData);
+        });
+
+        // Tutup modal
+        document.getElementById('closeModal').addEventListener('click', function() {
+            document.getElementById('biodataModal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+
+        // Tutup modal saat klik di luar modal
+        document.getElementById('biodataModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Inisialisasi
+        document.addEventListener('DOMContentLoaded', function() {
+            AOS.init({
+                duration: 1000,
+                once: true
+            });
+            
+            displayBiodata(friendsData);
+        });
+    </script>
+</body>
+</html>
