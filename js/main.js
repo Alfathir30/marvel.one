@@ -33,42 +33,6 @@ document.querySelectorAll('.nav-link').forEach(link => {
     });
 });
 
-// Tambahkan di file main.js atau sebelum </body>
-document.addEventListener('DOMContentLoaded', function() {
-    // Disable right-click
-    document.addEventListener('contextmenu', function(e) {
-        e.preventDefault();
-        return false;
-    });
-    
-    // Disable drag & drop
-    document.addEventListener('dragstart', function(e) {
-        if (e.target.tagName === 'IMG') {
-            e.preventDefault();
-            return false;
-        }
-    });
-    
-    // Disable keyboard shortcuts (Ctrl+S, etc)
-    document.addEventListener('keydown', function(e) {
-        // Disable Ctrl+S, Ctrl+Shift+S, Cmd+S
-        if ((e.ctrlKey || e.metaKey) && e.key === 's') {
-            e.preventDefault();
-            return false;
-        }
-        // Disable F12 (Developer Tools)
-        if (e.key === 'F12') {
-            e.preventDefault();
-            return false;
-        }
-        // Disable Ctrl+Shift+I, Cmd+Option+I
-        if ((e.ctrlKey && e.shiftKey && e.key === 'I') || (e.metaKey && e.altKey && e.key === 'I')) {
-            e.preventDefault();
-            return false;
-        }
-    });
-});
-
 // Theme toggle
 const themeToggle = document.querySelector('.theme-toggle');
 const currentTheme = localStorage.getItem('theme') || 'dark';
@@ -344,6 +308,258 @@ document.addEventListener('DOMContentLoaded', function() {
         '/coding_tasks/tugas2_list_biodata.html'
     ];
     
+    // Anti-Download & Anti-Screenshot Protection
+document.addEventListener('DOMContentLoaded', function() {
+    // ========== ANTI RIGHT-CLICK ==========
+    document.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+        showProtectionMessage('Hayo Mau Ngapain');
+        return false;
+    });
+
+    // ========== ANTI DRAG & DROP ==========
+    document.addEventListener('dragstart', function(e) {
+        if (e.target.tagName === 'IMG' || e.target.classList.contains('image-container')) {
+            e.preventDefault();
+            showProtectionMessage('Image dragging disabled');
+            return false;
+        }
+    });
+
+    // ========== ANTI KEYBOARD SHORTCUTS ==========
+    document.addEventListener('keydown', function(e) {
+        // Disable Ctrl+S, Ctrl+Shift+S, Cmd+S
+        if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+            e.preventDefault();
+            showProtectionMessage('Saving disabled');
+            return false;
+        }
+        
+        // Disable F12 (Developer Tools)
+        if (e.key === 'F12') {
+            e.preventDefault();
+            showProtectionMessage('Developer tools disabled');
+            return false;
+        }
+        
+        // Disable Ctrl+Shift+I, Cmd+Option+I (Inspect)
+        if ((e.ctrlKey && e.shiftKey && e.key === 'I') || 
+            (e.metaKey && e.altKey && e.key === 'I')) {
+            e.preventDefault();
+            showProtectionMessage('Inspect element disabled');
+            return false;
+        }
+        
+        // Disable Ctrl+Shift+C (Inspect Element)
+        if (e.ctrlKey && e.shiftKey && e.key === 'C') {
+            e.preventDefault();
+            showProtectionMessage('Inspect element disabled');
+            return false;
+        }
+        
+        // Disable Print Screen
+        if (e.key === 'PrintScreen' || e.keyCode === 44) {
+            e.preventDefault();
+            showProtectionMessage('Screenshot disabled');
+            return false;
+        }
+        
+        // Disable Alt+Print Screen
+        if (e.altKey && (e.key === 'PrintScreen' || e.keyCode === 44)) {
+            e.preventDefault();
+            showProtectionMessage('Screenshot disabled');
+            return false;
+        }
+    });
+
+    // ========== ANTI SCREENSHOT DETECTION ==========
+    // Deteksi jika ada attempt screenshot menggunakan Print Screen
+    window.addEventListener('keyup', function(e) {
+        if (e.key === 'PrintScreen' || e.keyCode === 44) {
+            showProtectionMessage('Screenshot detected and blocked');
+            // Clear clipboard
+            navigator.clipboard.writeText('').catch(err => {});
+        }
+    });
+
+    // ========== ANTI DEVELOPER TOOLS ==========
+    // Deteksi pembukaan Developer Tools
+    function detectDevTools() {
+        const threshold = 160; // lebar devtools
+        const widthThreshold = window.outerWidth - window.innerWidth > threshold;
+        const heightThreshold = window.outerHeight - window.innerHeight > threshold;
+        
+        if (widthThreshold || heightThreshold) {
+            document.body.innerHTML = `
+                <div style="
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: #0A0F1E;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    z-index: 9999;
+                    color: white;
+                    font-family: Arial, sans-serif;
+                    text-align: center;
+                ">
+                    <div>
+                        <h1 style="color: #6C63FF; margin-bottom: 20px;">⚠️ Access Restricted</h1>
+                        <p>Developer tools are not allowed on this page.</p>
+                        <p>Please close the developer tools to continue.</p>
+                    </div>
+                </div>
+            `;
+            throw new Error('Developer tools detected');
+        }
+    }
+
+    // Check periodically for devtools
+    setInterval(detectDevTools, 1000);
+
+    // ========== ANTI IFRAME ==========
+    // Prevent site from being embedded in iframe
+    if (window.top !== window.self) {
+        window.top.location = window.self.location;
+    }
+
+    // ========== ANTI COPY-PASTE ==========
+    document.addEventListener('copy', function(e) {
+        e.preventDefault();
+        showProtectionMessage('Copying disabled');
+        return false;
+    });
+
+    document.addEventListener('cut', function(e) {
+        e.preventDefault();
+        showProtectionMessage('Cutting disabled');
+        return false;
+    });
+
+    document.addEventListener('paste', function(e) {
+        e.preventDefault();
+        showProtectionMessage('Pasting disabled');
+        return false;
+    });
+
+    // ========== PROTECTION MESSAGE ==========
+    function showProtectionMessage(message) {
+        // Create notification
+        const notification = document.createElement('div');
+        notification.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #ff4757;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            z-index: 10000;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            animation: slideIn 0.3s ease;
+        `;
+        
+        notification.textContent = `🛡️ ${message}`;
+        document.body.appendChild(notification);
+        
+        // Remove after 3 seconds
+        setTimeout(() => {
+            notification.style.animation = 'slideOut 0.3s ease';
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.parentNode.removeChild(notification);
+                }
+            }, 300);
+        }, 3000);
+    }
+
+    // Add CSS for animations
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes slideOut {
+            from { transform: translateX(0); opacity: 1; }
+            to { transform: translateX(100%); opacity: 0; }
+        }
+    `;
+    document.head.appendChild(style);
+
+    // ========== ADVANCED PROTECTION ==========
+    // Blink detection (some screenshot tools cause brief visibility changes)
+    let lastVisibility = document.visibilityState;
+    document.addEventListener('visibilitychange', function() {
+        if (lastVisibility === 'visible' && document.visibilityState === 'hidden') {
+            // Possible screenshot attempt
+            showProtectionMessage('Suspicious activity detected');
+        }
+        lastVisibility = document.visibilityState;
+    });
+
+    // Mouse movement tracking for suspicious behavior
+    let mouseMoveCount = 0;
+    document.addEventListener('mousemove', function() {
+        mouseMoveCount++;
+        if (mouseMoveCount > 100) { // Reset counter periodically
+            mouseMoveCount = 0;
+        }
+    });
+
+    // ========== IMAGE SPECIFIC PROTECTION ==========
+    // Add protection layer to all images
+    const images = document.querySelectorAll('img');
+    images.forEach(img => {
+        // Add transparent overlay
+        const overlay = document.createElement('div');
+        overlay.style.cssText = `
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            z-index: 10;
+            pointer-events: none;
+        `;
+        
+        if (img.parentNode) {
+            img.parentNode.style.position = 'relative';
+            img.parentNode.appendChild(overlay);
+        }
+
+        // Prevent image loading if right-clicked
+        img.addEventListener('mousedown', function(e) {
+            if (e.button === 2) { // Right click
+                e.preventDefault();
+                return false;
+            }
+        });
+    });
+
+    console.log('🛡️ Protection system activated');
+});
+
+// Additional protection for page refresh attempts
+window.addEventListener('beforeunload', function(e) {
+    // This might be too aggressive, use with caution
+    // e.preventDefault();
+    // e.returnValue = 'Are you sure you want to leave?';
+});
+
+// Protection against browser extensions
+if (window.chrome && chrome.runtime && chrome.runtime.sendMessage) {
+    // Detected Chrome extensions - you might want to handle this differently
+    console.warn('Browser extensions detected');
+}
+
+
     // Check if current path is valid
     const isValidPath = validPaths.includes(currentPath) || 
                        currentPath.startsWith('/coding_tasks/') || 
