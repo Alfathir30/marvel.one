@@ -206,109 +206,7 @@ document.querySelectorAll('.animate-on-scroll').forEach(el => {
     observer.observe(el);
 });
 
-// Games page animations
-if (document.querySelector('.game-card')) {
-    const gameCards = document.querySelectorAll('.game-card');
-    
-    gameCards.forEach(card => {
-        card.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-10px) scale(1.02)';
-        });
-        
-        card.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateY(0) scale(1)';
-        });
-    });
-}
-
-// Prevent scrolling when game modal is open
-const gameModal = document.getElementById('gameModal');
-if (gameModal) {
-    gameModal.addEventListener('wheel', function(e) {
-        const gameContainer = document.querySelector('.game-container');
-        if (gameContainer && gameContainer.contains(e.target)) {
-            // Allow scrolling inside game container
-            return;
-        }
-        e.preventDefault();
-    }, { passive: false });
-}
-
-// 404 Page Easter Egg
-if (window.location.pathname.includes('404')) {
-    // Add some special interactions for 404 page
-    console.log('%c😢 Halaman ini merasa kesepian...', 'color: #6C63FF; font-size: 20px; font-weight: bold;');
-    console.log('%cCoba hibur halaman ini dengan klik tombol "Hibur Aku"!', 'color: #ff6b6b; font-size: 14px;');
-    
-    // Konami code for easter egg
-    let konamiCode = [];
-    const konamiPattern = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
-    
-    document.addEventListener('keydown', (e) => {
-        konamiCode.push(e.key);
-        konamiCode = konamiCode.slice(-10);
-        
-        if (konamiCode.join(',') === konamiPattern.join(',')) {
-            // Easter egg activated!
-            document.body.style.animation = 'rainbow 2s linear infinite';
-            setTimeout(() => {
-                document.body.style.animation = '';
-            }, 5000);
-            
-            const message = document.getElementById('messageBubble');
-            if (message) {
-                message.textContent = "KODE KONAMI! Kamu adalah legenda! 🎮🏆";
-                message.classList.add('show');
-                
-                // Create massive confetti
-                for (let i = 0; i < 100; i++) {
-                    setTimeout(() => createHeart(), i * 50);
-                }
-                
-                setTimeout(() => {
-                    message.classList.remove('show');
-                }, 5000);
-            }
-        }
-    });
-}
-
-// Rainbow animation for Konami code
-const style = document.createElement('style');
-style.textContent = `
-    @keyframes rainbow {
-        0% { filter: hue-rotate(0deg); }
-        100% { filter: hue-rotate(360deg); }
-    }
-`;
-document.head.appendChild(style);
-
-// 404 Page Handler - Simplified version
-document.addEventListener('DOMContentLoaded', function() {
-    // Get current path
-    const currentPath = window.location.pathname;
-    
-    // List of valid paths (both with and without .html)
-    const validPaths = [
-        '/',
-        '/index.html',
-        '/about',
-        '/about.html',
-        '/gallery',
-        '/gallery.html',
-        '/blog',
-        '/blog.html',
-        '/games',
-        '/games.html',
-        '/coding_tasks/tugas_all',
-        '/coding_tasks/tugas_all.html',
-        '/coding_tasks/tugas1_biodata',
-        '/coding_tasks/tugas1_biodata.html',
-        '/coding_tasks/tugas2_list_biodata',
-        '/coding_tasks/tugas2_list_biodata.html'
-    ];
-    
-    // Anti-Download & Anti-Screenshot Protection
+ // Anti-Download & Anti-Screenshot Protection
 document.addEventListener('DOMContentLoaded', function() {
     // ========== ANTI RIGHT-CLICK ==========
     document.addEventListener('contextmenu', function(e) {
@@ -558,6 +456,108 @@ if (window.chrome && chrome.runtime && chrome.runtime.sendMessage) {
     // Detected Chrome extensions - you might want to handle this differently
     console.warn('Browser extensions detected');
 }
+
+// Games page animations
+if (document.querySelector('.game-card')) {
+    const gameCards = document.querySelectorAll('.game-card');
+    
+    gameCards.forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-10px) scale(1.02)';
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0) scale(1)';
+        });
+    });
+}
+
+// Prevent scrolling when game modal is open
+const gameModal = document.getElementById('gameModal');
+if (gameModal) {
+    gameModal.addEventListener('wheel', function(e) {
+        const gameContainer = document.querySelector('.game-container');
+        if (gameContainer && gameContainer.contains(e.target)) {
+            // Allow scrolling inside game container
+            return;
+        }
+        e.preventDefault();
+    }, { passive: false });
+}
+
+// 404 Page Easter Egg
+if (window.location.pathname.includes('404')) {
+    // Add some special interactions for 404 page
+    console.log('%c😢 Halaman ini merasa kesepian...', 'color: #6C63FF; font-size: 20px; font-weight: bold;');
+    console.log('%cCoba hibur halaman ini dengan klik tombol "Hibur Aku"!', 'color: #ff6b6b; font-size: 14px;');
+    
+    // Konami code for easter egg
+    let konamiCode = [];
+    const konamiPattern = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+    
+    document.addEventListener('keydown', (e) => {
+        konamiCode.push(e.key);
+        konamiCode = konamiCode.slice(-10);
+        
+        if (konamiCode.join(',') === konamiPattern.join(',')) {
+            // Easter egg activated!
+            document.body.style.animation = 'rainbow 2s linear infinite';
+            setTimeout(() => {
+                document.body.style.animation = '';
+            }, 5000);
+            
+            const message = document.getElementById('messageBubble');
+            if (message) {
+                message.textContent = "KODE KONAMI! Kamu adalah legenda! 🎮🏆";
+                message.classList.add('show');
+                
+                // Create massive confetti
+                for (let i = 0; i < 100; i++) {
+                    setTimeout(() => createHeart(), i * 50);
+                }
+                
+                setTimeout(() => {
+                    message.classList.remove('show');
+                }, 5000);
+            }
+        }
+    });
+}
+
+// Rainbow animation for Konami code
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes rainbow {
+        0% { filter: hue-rotate(0deg); }
+        100% { filter: hue-rotate(360deg); }
+    }
+`;
+document.head.appendChild(style);
+
+// 404 Page Handler - Simplified version
+document.addEventListener('DOMContentLoaded', function() {
+    // Get current path
+    const currentPath = window.location.pathname;
+    
+    // List of valid paths (both with and without .html)
+    const validPaths = [
+        '/',
+        '/index.html',
+        '/about',
+        '/about.html',
+        '/gallery',
+        '/gallery.html',
+        '/blog',
+        '/blog.html',
+        '/games',
+        '/games.html',
+        '/coding_tasks/tugas_all',
+        '/coding_tasks/tugas_all.html',
+        '/coding_tasks/tugas1_biodata',
+        '/coding_tasks/tugas1_biodata.html',
+        '/coding_tasks/tugas2_list_biodata',
+        '/coding_tasks/tugas2_list_biodata.html'
+    ];
 
 
     // Check if current path is valid
