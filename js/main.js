@@ -33,6 +33,42 @@ document.querySelectorAll('.nav-link').forEach(link => {
     });
 });
 
+// Tambahkan di file main.js atau sebelum </body>
+document.addEventListener('DOMContentLoaded', function() {
+    // Disable right-click
+    document.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+        return false;
+    });
+    
+    // Disable drag & drop
+    document.addEventListener('dragstart', function(e) {
+        if (e.target.tagName === 'IMG') {
+            e.preventDefault();
+            return false;
+        }
+    });
+    
+    // Disable keyboard shortcuts (Ctrl+S, etc)
+    document.addEventListener('keydown', function(e) {
+        // Disable Ctrl+S, Ctrl+Shift+S, Cmd+S
+        if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+            e.preventDefault();
+            return false;
+        }
+        // Disable F12 (Developer Tools)
+        if (e.key === 'F12') {
+            e.preventDefault();
+            return false;
+        }
+        // Disable Ctrl+Shift+I, Cmd+Option+I
+        if ((e.ctrlKey && e.shiftKey && e.key === 'I') || (e.metaKey && e.altKey && e.key === 'I')) {
+            e.preventDefault();
+            return false;
+        }
+    });
+});
+
 // Theme toggle
 const themeToggle = document.querySelector('.theme-toggle');
 const currentTheme = localStorage.getItem('theme') || 'dark';
@@ -96,14 +132,14 @@ if (document.querySelector('.view-btn')) {
     // Gallery data
     const galleryData = {
         1: {
-            src: 'https://picsum.photos/seed/gallery1/1200/800.jpg',
+            src: 'assets/images/galeri/1580158815.jpg',
             title: 'Pemandangan Alam',
             desc: 'Fotografi'
         },
         2: {
-            src: 'https://picsum.photos/seed/gallery2/1200/800.jpg',
-            title: 'Desain UI',
-            desc: 'Desain'
+            src: 'assets/images/galeri/1735402517.jpg',
+            title: 'Pantai',
+            desc: 'Fotografi'
         },
         3: {
             src: 'https://picsum.photos/seed/gallery3/1200/800.jpg',
@@ -111,8 +147,8 @@ if (document.querySelector('.view-btn')) {
             desc: 'Proyek'
         },
         4: {
-            src: 'https://picsum.photos/seed/gallery4/1200/800.jpg',
-            title: 'Street Photography',
+            src: 'assets/images/galeri/1614704514.jpg',
+            title: 'Food',
             desc: 'Fotografi'
         },
         5: {
